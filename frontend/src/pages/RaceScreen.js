@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { RaceEngine, drawRaceScene } from "@/lib/gameEngine";
+import axios from "axios";
 
 export default function RaceScreen() {
-  const { player, selectedCar, recordRace } = useGame();
+  const { player, selectedCar, recordRace, refreshPlayer } = useGame();
   const navigate = useNavigate();
   const location = useLocation();
   const canvasRef = useRef(null);
@@ -148,6 +149,7 @@ export default function RaceScreen() {
     if (!results || saving) return;
     setSaving(true);
     const won = results.winner === "player" && !fouled;
+    const isTournament = raceData?.raceType === "tournament";
     try {
       await recordRace({
         player_car_id: selectedCar.id,
@@ -158,19 +160,25 @@ export default function RaceScreen() {
         player_speed: fouled ? 0 : results.playerSpeed,
         opponent_speed: results.opponentSpeed,
         result: won ? "win" : "loss",
-        earnings: won ? prize : 0,
+        earnings: isTournament ? 0 : (won ? prize : 0),
         race_type: raceData?.raceType || "quick",
         tournament_id: raceData?.tournamentId || null,
         race_index: raceData?.raceIndex ?? null,
       });
+
+      if (isTournament && raceData?.tournamentId != null) {
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/tournament/advance`, {
+          player_id: player.id,
+          tournament_id: raceData.tournamentId,
+          race_index: raceData.raceIndex,
+          won
+        });
+        await refreshPlayer();
+      }
     } catch (e) {
       console.error(e);
     }
     setSaving(false);
-
-    if (raceData?.raceType === "tournament" && raceData?.onComplete) {
-      raceData.onComplete(won);
-    }
     navigate(raceData?.returnTo || "/garage");
   };
 
