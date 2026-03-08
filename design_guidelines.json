@@ -1,0 +1,139 @@
+{
+  "design_system": {
+    "name": "Nitto Legacy: Industrial Steel",
+    "description": "A spiritual successor to Nitto 1320 Legends, featuring a heavy industrial aesthetic, brushed metal textures, chrome accents, and a deep navy automotive color palette.",
+    "theme_strategy": "dark_mode_only",
+    "typography": {
+      "font_family_headings": "Chakra Petch, sans-serif",
+      "font_family_body": "Barlow, sans-serif",
+      "font_family_data": "Chakra Petch, monospace",
+      "scale": {
+        "h1": "text-4xl md:text-6xl font-bold tracking-tighter uppercase",
+        "h2": "text-3xl md:text-4xl font-bold tracking-tight uppercase",
+        "h3": "text-xl md:text-2xl font-semibold tracking-wide uppercase",
+        "body": "text-base md:text-lg leading-relaxed text-slate-300",
+        "label": "text-xs md:text-sm font-bold tracking-[0.1em] uppercase text-slate-400",
+        "data": "text-xl font-mono tracking-widest text-white"
+      }
+    },
+    "colors": {
+      "palette": {
+        "primary": {
+          "base": "#0B0F19",
+          "label": "Deep Midnight Navy - Main Background"
+        },
+        "secondary": {
+          "base": "#1A2332",
+          "label": "Brushed Steel Blue - Panels/Cards"
+        },
+        "accents": {
+          "amber": "#FFB300",
+          "red": "#E63946",
+          "blue": "#00A3FF",
+          "chrome_light": "#F1F5F9",
+          "chrome_dark": "#475569"
+        },
+        "gradients": {
+          "metal_vertical": "linear-gradient(180deg, #2D3748 0%, #1A202C 100%)",
+          "chrome_diagonal": "linear-gradient(135deg, #E2E8F0 0%, #94A3B8 50%, #64748B 100%)",
+          "glass_dark": "linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.95) 100%)"
+        }
+      },
+      "usage": {
+        "background": "bg-[#0B0F19]",
+        "panel": "bg-[#1A2332] border border-[#2D3748] shadow-xl",
+        "text_primary": "text-[#F1F5F9]",
+        "text_secondary": "text-[#94A3B8]",
+        "text_accent": "text-[#FFB300]",
+        "border_subtle": "border-[#2D3748]",
+        "border_highlight": "border-[#475569]"
+      }
+    },
+    "layout_strategies": {
+      "container_padding": "p-4 md:p-8 lg:p-12",
+      "grid_gap": "gap-6",
+      "border_radius": "rounded-sm",
+      "visual_style": {
+        "glassmorphism": "backdrop-blur-md bg-opacity-90 border border-white/10 shadow-2xl",
+        "mechanical_panel": "relative border-l-4 border-l-[#FFB300] bg-[#1A2332] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]",
+        "chamfered_corners": "clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)"
+      }
+    },
+    "components": {
+      "buttons": {
+        "primary": "bg-gradient-to-b from-[#334155] to-[#1E293B] hover:from-[#475569] hover:to-[#334155] text-white font-bold py-3 px-8 border-t border-white/20 border-b-4 border-black/50 active:border-b-0 active:translate-y-1 transition-all uppercase tracking-wider skew-x-[-10deg]",
+        "secondary": "bg-transparent border-2 border-[#475569] hover:border-[#94A3B8] text-[#94A3B8] hover:text-white font-bold py-2 px-6 transition-all uppercase tracking-wider",
+        "danger": "bg-gradient-to-b from-[#EF4444] to-[#991B1B] text-white border-t border-white/20 border-b-4 border-black/50 active:border-b-0 active:translate-y-1 skew-x-[-10deg]",
+        "nav_tab": "px-6 py-3 bg-[#0F172A] border-r border-[#1E293B] text-[#64748B] hover:text-[#FFB300] hover:bg-[#1E293B] transition-colors uppercase font-bold tracking-wider skew-x-[-15deg] data-[state=active]:bg-[#1E293B] data-[state=active]:text-[#FFB300] data-[state=active]:border-b-2 data-[state=active]:border-b-[#FFB300]"
+      },
+      "cards": {
+        "car_card": "group relative overflow-hidden bg-[#1A2332] border border-[#2D3748] hover:border-[#FFB300] transition-colors duration-300 rounded-sm shadow-lg",
+        "part_card": "bg-[#0F172A] border border-[#1E293B] p-4 flex flex-col gap-2 hover:bg-[#1E293B] transition-colors cursor-pointer"
+      },
+      "inputs": {
+        "standard": "bg-[#0B0F19] border border-[#2D3748] text-white p-3 focus:border-[#FFB300] focus:ring-1 focus:ring-[#FFB300] outline-none rounded-sm font-mono placeholder:text-slate-600"
+      }
+    },
+    "visual_enhancers": {
+      "textures": {
+        "carbon_fiber": "radial-gradient(black 15%, transparent 16%) 0 0, radial-gradient(black 15%, transparent 16%) 8px 8px, radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px, radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px",
+        "scanlines": "linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2))",
+        "grid": "linear-gradient(to right, #1E293B 1px, transparent 1px), linear-gradient(to bottom, #1E293B 1px, transparent 1px)"
+      },
+      "effects": {
+        "glow_amber": "shadow-[0_0_15px_rgba(255,179,0,0.3)]",
+        "glow_blue": "shadow-[0_0_15px_rgba(0,163,255,0.3)]",
+        "inner_shadow": "shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)]"
+      }
+    },
+    "assets": {
+      "image_urls": {
+        "cars": [
+          "https://images.unsplash.com/photo-1583896027470-eeabb5698970?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "https://images.unsplash.com/photo-1602896563229-69270fb1bf8e?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "https://images.unsplash.com/photo-1741552991074-47f5bf5d6125?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "https://images.unsplash.com/photo-1660341598671-3af8648a7ac0?crop=entropy&cs=srgb&fm=jpg&q=85"
+        ],
+        "parts": [
+          "https://images.unsplash.com/photo-1706888418629-968c51935044?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "https://images.unsplash.com/photo-1769807644905-35d76acaceb4?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "https://images.unsplash.com/photo-1758620320792-08af6f1f4f35?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "https://images.unsplash.com/photo-1609872209699-3e55dc7d90b9?crop=entropy&cs=srgb&fm=jpg&q=85"
+        ],
+        "backgrounds": [
+          "https://images.unsplash.com/photo-1599017795227-abc2381c5798?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "https://images.unsplash.com/photo-1749498891468-88f77a8d745b?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "https://images.unsplash.com/photo-1635108198854-26645ffe6714?crop=entropy&cs=srgb&fm=jpg&q=85"
+        ],
+        "textures": [
+          "https://images.unsplash.com/photo-1662826323790-47114fdb8c1c?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "https://images.unsplash.com/photo-1658825959612-8f4bce484393?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "https://images.unsplash.com/photo-1648583189779-536c76a17957?crop=entropy&cs=srgb&fm=jpg&q=85"
+        ],
+        "characters": [
+          "https://images.unsplash.com/photo-1685826398847-0a5744b8be1e?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "https://images.unsplash.com/photo-1711662171213-4141abec218f?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "https://images.unsplash.com/photo-1701118344827-e58f34147b26?crop=entropy&cs=srgb&fm=jpg&q=85"
+        ]
+      }
+    }
+  },
+  "instructions_to_main_agent": {
+    "step_1_setup": "Update tailwind.config.js to include the new color palette (Midnight Navy, Steel Blue, Amber, Red). Ensure fonts 'Chakra Petch' and 'Barlow' are properly loaded.",
+    "step_2_global_styles": "Refactor App.css to replace the 'Neon Green' theme with the 'Industrial Steel' theme. Use the texture images as subtle background overlays.",
+    "step_3_navigation": "Rebuild the Main Navigation bar using the skew-transform 'tab' style found in early 2000s racing games. It should be a horizontal bar with angled separators.",
+    "step_4_components": "Customize Shadcn components (Card, Button, Dialog) to remove the default 'clean' look and add borders, bevels, and industrial shadows. Cards should have 'bolted' corners (use pseudo-elements).",
+    "step_5_pages": "Redesign Main Menu, Garage, and Race Screen using the layout strategies. The Race Screen must integrate the canvas element seamlessly into a 'dashboard' view.",
+    "critical_visuals": "Do NOT use rounded-xl or rounded-2xl. Stick to rounded-sm or chamfered edges. Use gradients for buttons to give them volume (pseudo-3D)."
+  },
+  "universal_guidelines": [
+    "Always provide a 'data-testid' for every interactive element.",
+    "Ensure text contrast meets WCAG AA standards, especially on dark steel backgrounds.",
+    "Use 'Chakra Petch' for all headers and numeric data. Use 'Barlow' for body text.",
+    "Do not use solid black (#000000); use Deep Midnight Navy (#0B0F19) for 'black' areas.",
+    "Buttons must have a 'pressed' state using 'active:translate-y-1' and border adjustments.",
+    "Images should be treated with a slight desaturation filter or blue tint to match the cold industrial vibe, unless they are active/highlighted.",
+    "All containers must have generous padding (p-6 or p-8) to avoid cramping.",
+    "Use grid layouts (bento-style) for Garage and Shop views."
+  ]
+}
