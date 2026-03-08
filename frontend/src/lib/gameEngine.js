@@ -372,11 +372,11 @@ export function drawTachometer(ctx, w, h, rpm, redline, gear, isElectric) {
 
   // Color zones
   const zones = [
-    { end: 0.70, color: '#1a2a1a' },
-    { end: 0.82, color: '#0a4a0a' },
-    { end: 0.93, color: '#00cc66' },
-    { end: 0.97, color: '#cc8800' },
-    { end: 1.00, color: '#cc2244' },
+    { end: 0.70, color: '#1A2332' },
+    { end: 0.82, color: '#2D4A1E' },
+    { end: 0.93, color: '#00CC66' },
+    { end: 0.97, color: '#FFB300' },
+    { end: 1.00, color: '#E63946' },
   ];
   let lastEnd = 0;
   zones.forEach(z => {
@@ -419,7 +419,7 @@ export function drawTachometer(ctx, w, h, rpm, redline, gear, isElectric) {
       const glowIntensity = rpmPct >= 0.82 && rpmPct <= 0.93 ? 0.8 : 0.3;
       ctx.beginPath();
       ctx.arc(cx, cy, radius + 20, startRad + sweepRad * 0.82, startRad + sweepRad * 0.93);
-      ctx.strokeStyle = `rgba(0, 255, 136, ${glowIntensity})`;
+      ctx.strokeStyle = `rgba(0, 204, 102, ${glowIntensity})`;
       ctx.lineWidth = 3;
       ctx.stroke();
     }
@@ -438,7 +438,7 @@ export function drawTachometer(ctx, w, h, rpm, redline, gear, isElectric) {
   ctx.stroke();
 
   // Needle
-  const needleColor = rpmPct > 0.93 ? '#ff2244' : rpmPct > 0.82 ? '#00ff88' : '#ff4444';
+  const needleColor = rpmPct > 0.93 ? '#E63946' : rpmPct > 0.82 ? '#00CC66' : '#FFB300';
   ctx.beginPath();
   ctx.moveTo(cx, cy);
   ctx.lineTo(cx + Math.cos(needleAngle) * needleLen, cy + Math.sin(needleAngle) * needleLen);
@@ -469,7 +469,7 @@ export function drawTachometer(ctx, w, h, rpm, redline, gear, isElectric) {
 
   // Digital RPM
   ctx.font = "bold 20px 'Chakra Petch', sans-serif";
-  ctx.fillStyle = rpmPct > 0.93 ? '#ff2244' : '#e0e0e8';
+  ctx.fillStyle = rpmPct > 0.93 ? '#E63946' : '#F1F5F9';
   ctx.textAlign = 'center';
   ctx.fillText(Math.round(rpm).toLocaleString(), cx, cy + 24);
   ctx.font = "9px 'Barlow', sans-serif";
@@ -478,7 +478,7 @@ export function drawTachometer(ctx, w, h, rpm, redline, gear, isElectric) {
 
   // Gear
   ctx.font = "bold 18px 'Chakra Petch', sans-serif";
-  ctx.fillStyle = '#00ff88';
+  ctx.fillStyle = '#FFB300';
   ctx.fillText(isElectric ? 'D' : `G${gear}`, cx, cy + 56);
 }
 
@@ -487,8 +487,8 @@ export function drawRaceScene(ctx, width, height, engine, playerColor, opponentC
 
   // Night sky
   const skyGrad = ctx.createLinearGradient(0, 0, 0, height * 0.35);
-  skyGrad.addColorStop(0, '#030308');
-  skyGrad.addColorStop(1, '#0a0a16');
+  skyGrad.addColorStop(0, '#050810');
+  skyGrad.addColorStop(1, '#0B0F19');
   ctx.fillStyle = skyGrad;
   ctx.fillRect(0, 0, width, height * 0.35);
 
@@ -501,7 +501,7 @@ export function drawRaceScene(ctx, width, height, engine, playerColor, opponentC
   }
 
   // Cityscape silhouette
-  ctx.fillStyle = '#070710';
+  ctx.fillStyle = '#0B0F19';
   for (let i = 0; i < 20; i++) {
     const bx = i * (width / 15) - 30;
     const bw = 30 + (i % 4) * 25;
@@ -515,15 +515,15 @@ export function drawRaceScene(ctx, width, height, engine, playerColor, opponentC
           ctx.fillRect(bx + wx, height * 0.35 - bh + wy, 3, 3);
         }
       }
-      ctx.fillStyle = '#070710';
+      ctx.fillStyle = '#0B0F19';
     }
   }
 
   // Road surface with texture
   const roadGrad = ctx.createLinearGradient(0, height * 0.35, 0, height);
-  roadGrad.addColorStop(0, '#161620');
-  roadGrad.addColorStop(0.3, '#121218');
-  roadGrad.addColorStop(1, '#0e0e14');
+  roadGrad.addColorStop(0, '#111827');
+  roadGrad.addColorStop(0.3, '#0F1420');
+  roadGrad.addColorStop(1, '#0B0F19');
   ctx.fillStyle = roadGrad;
   ctx.fillRect(0, height * 0.35, width, height * 0.65);
 

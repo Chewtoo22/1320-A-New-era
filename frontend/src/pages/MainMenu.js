@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGame } from "@/App";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
 export default function MainMenu() {
@@ -28,76 +26,107 @@ export default function MainMenu() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="neon-text text-2xl animate-pulse" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>Loading...</div>
+        <div className="text-amber-glow text-2xl animate-pulse" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>
+          LOADING...
+        </div>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-4" data-testid="main-menu">
-      {/* Speed lines background */}
-      {[...Array(8)].map((_, i) => (
-        <div key={i} className="speed-line" style={{
-          top: `${10 + i * 12}%`, width: `${60 + i * 20}px`, opacity: 0.15,
-          animationDelay: `${i * 0.3}s`, animationDuration: `${1.5 + i * 0.2}s`
-        }} />
-      ))}
+      {/* Subtle grid background */}
+      <div className="absolute inset-0 opacity-[0.03]" style={{
+        backgroundImage: 'linear-gradient(to right, #F1F5F9 1px, transparent 1px), linear-gradient(to bottom, #F1F5F9 1px, transparent 1px)',
+        backgroundSize: '40px 40px'
+      }} />
+
+      {/* Ambient glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#FFB300] opacity-[0.03] rounded-full blur-[120px]" />
 
       <div className="relative z-10 text-center max-w-xl w-full animate-fade-in">
         {/* Title */}
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-wider mb-2 neon-text" style={{ fontFamily: "'Chakra Petch', sans-serif" }} data-testid="game-title">
-          TURBO<br/>SHOWDOWN
-        </h1>
-        <p className="text-sm sm:text-base text-gray-500 mb-12 tracking-widest uppercase">Quarter Mile Legends</p>
+        <div className="mb-4">
+          <h1
+            className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tighter uppercase text-amber-glow"
+            style={{ fontFamily: "'Chakra Petch', sans-serif" }}
+            data-testid="game-title"
+          >
+            TURBO<br/>SHOWDOWN
+          </h1>
+          <div className="flex items-center justify-center gap-3 mt-3">
+            <div className="h-px flex-1 max-w-[80px] bg-gradient-to-r from-transparent to-[#FFB300]" />
+            <p className="text-xs sm:text-sm text-[#94A3B8] tracking-[0.25em] uppercase font-semibold" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>
+              Quarter Mile Legends
+            </p>
+            <div className="h-px flex-1 max-w-[80px] bg-gradient-to-l from-transparent to-[#FFB300]" />
+          </div>
+        </div>
+
+        {/* Decorative line */}
+        <div className="w-full max-w-[300px] mx-auto h-[2px] bg-gradient-to-r from-transparent via-[#2D3748] to-transparent mb-10" />
 
         {player ? (
           <div className="space-y-4 animate-fade-in">
-            <p className="text-gray-400 text-base mb-2">Welcome back, <span className="neon-text">{player.username}</span></p>
-            <p className="text-gray-500 text-sm mb-6">
-              Cash: <span className="neon-text">${player.cash?.toLocaleString()}</span> | Record: {player.wins}W - {player.losses}L
-            </p>
-            <Button onClick={() => navigate("/garage")} className="btn-neon w-full max-w-xs h-12 text-base rounded-lg" data-testid="continue-btn">
-              Continue
-            </Button>
-            <div className="flex gap-3 justify-center mt-4">
-              <Button variant="ghost" onClick={() => navigate("/dealership")} className="text-gray-400 hover:text-white text-sm" data-testid="menu-dealership-btn">
-                Dealership
-              </Button>
-              <Button variant="ghost" onClick={() => navigate("/tournament")} className="text-gray-400 hover:text-white text-sm" data-testid="menu-tournament-btn">
-                Tournaments
-              </Button>
+            <div className="steel-card p-6 max-w-sm mx-auto">
+              <p className="text-[#94A3B8] text-sm mb-1">Welcome back</p>
+              <p className="text-xl font-bold text-amber-glow" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>{player.username}</p>
+              <div className="flex justify-center gap-6 mt-3 text-sm">
+                <span className="text-[#94A3B8]">Cash: <span className="text-amber-glow font-bold">${player.cash?.toLocaleString()}</span></span>
+                <span className="text-[#94A3B8]">{player.wins}W - {player.losses}L</span>
+              </div>
+            </div>
+            <div className="mt-6">
+              <button onClick={() => navigate("/garage")} className="btn-amber btn-steel btn-lg animate-engine-pulse" data-testid="continue-btn">
+                Continue
+              </button>
+            </div>
+            <div className="flex gap-4 justify-center mt-4">
+              <button onClick={() => navigate("/dealership")} className="text-[#64748B] hover:text-[#F1F5F9] text-sm transition-colors" data-testid="menu-dealership-btn">
+                Showroom
+              </button>
+              <button onClick={() => navigate("/tournament")} className="text-[#64748B] hover:text-[#F1F5F9] text-sm transition-colors" data-testid="menu-tournament-btn">
+                Race Track
+              </button>
             </div>
           </div>
         ) : showNew ? (
-          <div className="space-y-4 animate-fade-in max-w-xs mx-auto">
-            <p className="text-gray-400 text-sm mb-4">Choose your racer name</p>
-            <Input
-              value={username} onChange={e => setUsername(e.target.value)}
-              placeholder="Enter username..."
-              className="bg-transparent border-gray-700 text-center h-12 text-base"
-              onKeyDown={e => e.key === 'Enter' && handleCreate()}
-              maxLength={20}
-              data-testid="username-input"
-            />
-            <Button onClick={handleCreate} disabled={creating} className="btn-neon w-full h-12 text-base rounded-lg" data-testid="create-player-btn">
+          <div className="space-y-4 animate-fade-in max-w-sm mx-auto">
+            <div className="steel-card p-6">
+              <p className="text-[#94A3B8] text-sm mb-4 uppercase tracking-wider" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>
+                Choose Your Racer Name
+              </p>
+              <input
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+                placeholder="Enter username..."
+                className="w-full bg-[#0B0F19] border border-[#2D3748] text-center h-12 text-base text-[#F1F5F9] rounded-sm px-4 focus:border-[#FFB300] focus:ring-1 focus:ring-[#FFB300] outline-none font-mono"
+                onKeyDown={e => e.key === 'Enter' && handleCreate()}
+                maxLength={20}
+                data-testid="username-input"
+              />
+            </div>
+            <button onClick={handleCreate} disabled={creating} className="btn-amber btn-steel btn-lg w-full max-w-sm" data-testid="create-player-btn">
               {creating ? "Creating..." : "Start Racing"}
-            </Button>
-            <Button variant="ghost" onClick={() => setShowNew(false)} className="text-gray-500 text-sm" data-testid="back-btn">
+            </button>
+            <button onClick={() => setShowNew(false)} className="text-[#64748B] text-sm hover:text-[#94A3B8] transition-colors" data-testid="back-btn">
               Back
-            </Button>
+            </button>
           </div>
         ) : (
-          <div className="space-y-4 animate-fade-in">
-            <Button onClick={() => setShowNew(true)} className="btn-neon w-full max-w-xs h-14 text-lg rounded-lg animate-pulse-glow" data-testid="new-game-btn">
+          <div className="space-y-6 animate-fade-in">
+            <button onClick={() => setShowNew(true)} className="btn-amber btn-steel btn-lg animate-engine-pulse" data-testid="new-game-btn">
               New Game
-            </Button>
-            <p className="text-gray-600 text-xs mt-8">Start with $20,000 | 17 cars to collect | 3 tournaments to conquer</p>
+            </button>
+            <p className="text-[#475569] text-xs mt-8 tracking-wider">
+              Start with $20,000 | 17 cars to collect | 3 tournaments to conquer
+            </p>
           </div>
         )}
       </div>
 
-      {/* Bottom decoration */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent" />
+      {/* Bottom accent */}
+      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#FFB300]/20 to-transparent" />
     </div>
   );
 }

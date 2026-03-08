@@ -5,16 +5,22 @@
 @tailwind utilities;
 
 :root {
-  --neon-green: #00ff88;
-  --neon-red: #ff3366;
-  --neon-amber: #ffaa00;
-  --neon-blue: #00aaff;
-  --bg-deep: #08080c;
-  --bg-card: rgba(14, 14, 22, 0.92);
-  --bg-card-hover: rgba(20, 20, 32, 0.95);
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --text-primary: #e8e8f0;
-  --text-muted: #6a6a82;
+  --navy-deep: #0B0F19;
+  --navy-mid: #111827;
+  --steel-panel: #1A2332;
+  --steel-border: #2D3748;
+  --steel-highlight: #475569;
+  --chrome-light: #F1F5F9;
+  --chrome-mid: #94A3B8;
+  --chrome-dark: #64748B;
+  --amber: #FFB300;
+  --amber-glow: rgba(255, 179, 0, 0.3);
+  --race-red: #E63946;
+  --race-blue: #00A3FF;
+  --race-green: #00CC66;
+  --text-primary: #F1F5F9;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
 }
 
 body {
@@ -22,13 +28,9 @@ body {
   font-family: 'Barlow', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--bg-deep);
+  background-color: var(--navy-deep);
   color: var(--text-primary);
   overflow-x: hidden;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -37,26 +39,26 @@ h1, h2, h3, h4, h5, h6 {
 
 @layer base {
   :root {
-    --background: 230 20% 4%;
-    --foreground: 230 20% 92%;
-    --card: 230 20% 6%;
-    --card-foreground: 230 20% 92%;
-    --popover: 230 20% 6%;
-    --popover-foreground: 230 20% 92%;
-    --primary: 150 100% 50%;
-    --primary-foreground: 230 20% 4%;
-    --secondary: 230 15% 12%;
-    --secondary-foreground: 230 20% 92%;
-    --muted: 230 15% 12%;
-    --muted-foreground: 230 15% 45%;
-    --accent: 150 100% 50%;
-    --accent-foreground: 230 20% 4%;
-    --destructive: 345 100% 60%;
+    --background: 220 26% 7%;
+    --foreground: 210 40% 96%;
+    --card: 215 28% 15%;
+    --card-foreground: 210 40% 96%;
+    --popover: 220 26% 7%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 43 100% 50%;
+    --primary-foreground: 220 26% 7%;
+    --secondary: 217 19% 18%;
+    --secondary-foreground: 210 40% 96%;
+    --muted: 217 19% 18%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 43 100% 50%;
+    --accent-foreground: 220 26% 7%;
+    --destructive: 356 72% 56%;
     --destructive-foreground: 0 0% 98%;
-    --border: 230 15% 12%;
-    --input: 230 15% 12%;
-    --ring: 150 100% 50%;
-    --radius: 0.5rem;
+    --border: 217 19% 22%;
+    --input: 217 19% 18%;
+    --ring: 43 100% 50%;
+    --radius: 0.25rem;
   }
 }
 
@@ -83,8 +85,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+::-webkit-scrollbar-track { background: #0B0F19; }
+::-webkit-scrollbar-thumb { background: #2D3748; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #475569; }

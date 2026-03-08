@@ -1,8 +1,8 @@
 import { createContext, useContext, useState, useCallback, useEffect } from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import { Toaster, toast } from "sonner";
+import { Toaster } from "sonner";
 import MainMenu from "@/pages/MainMenu";
 import Garage from "@/pages/Garage";
 import Dealership from "@/pages/Dealership";
@@ -103,29 +103,62 @@ function GameProvider({ children }) {
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
 }
 
+const NAV_ITEMS = [
+  { path: "/garage", label: "GARAGE" },
+  { path: "/dealership", label: "SHOWROOM" },
+  { path: "/upgrades", label: "PARTS SHOP" },
+  { path: "/tournament", label: "RACE TRACK" },
+];
+
 function NavBar() {
-  const { player } = useGame();
+  const { player, selectedCar } = useGame();
   const navigate = useNavigate();
+  const location = useLocation();
 
   if (!player) return null;
 
   return (
-    <nav className="game-nav px-4 py-3 flex items-center justify-between" data-testid="game-nav">
-      <div className="flex items-center gap-6">
-        <button onClick={() => navigate("/")} className="font-bold text-lg tracking-wider neon-text" style={{ fontFamily: "'Chakra Petch', sans-serif" }} data-testid="nav-logo">
-          TURBO SHOWDOWN
-        </button>
-        <div className="flex gap-4 text-sm">
-          <button onClick={() => navigate("/garage")} className="text-gray-400 hover:text-white transition-colors" data-testid="nav-garage">Garage</button>
-          <button onClick={() => navigate("/dealership")} className="text-gray-400 hover:text-white transition-colors" data-testid="nav-dealership">Dealership</button>
-          <button onClick={() => navigate("/upgrades")} className="text-gray-400 hover:text-white transition-colors" data-testid="nav-upgrades">Upgrades</button>
-          <button onClick={() => navigate("/tournament")} className="text-gray-400 hover:text-white transition-colors" data-testid="nav-tournament">Tournaments</button>
+    <nav className="game-nav" data-testid="game-nav">
+      <div className="flex items-center justify-between px-4">
+        {/* Left: Logo + Tabs */}
+        <div className="flex items-center">
+          <button
+            onClick={() => navigate("/")}
+            className="font-bold text-lg tracking-wider mr-2 px-4 py-3 text-amber-glow"
+            style={{ fontFamily: "'Chakra Petch', sans-serif" }}
+            data-testid="nav-logo"
+          >
+            TURBO SHOWDOWN
+          </button>
+          <div className="h-8 w-px bg-[#2D3748] mx-2" />
+          <div className="flex">
+            {NAV_ITEMS.map(item => (
+              <button
+                key={item.path}
+                onClick={() => navigate(item.path)}
+                className={`nav-tab ${location.pathname === item.path ? 'active' : ''}`}
+                data-testid={`nav-${item.label.toLowerCase().replace(/\s/g, '-')}`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="flex items-center gap-4">
-        <span className="text-sm text-gray-400">{player.username}</span>
-        <span className="neon-text font-bold text-sm" data-testid="nav-cash">${player.cash?.toLocaleString()}</span>
-        <span className="text-xs text-gray-500">{player.wins}W / {player.losses}L</span>
+
+        {/* Right: Player info */}
+        <div className="flex items-center gap-4 py-3">
+          {selectedCar && (
+            <span className="text-xs text-chrome hidden md:block">
+              {selectedCar.catalog.name}
+            </span>
+          )}
+          <div className="h-4 w-px bg-[#2D3748]" />
+          <span className="text-sm text-chrome">{player.username}</span>
+          <span className="font-bold text-sm text-amber-glow" data-testid="nav-cash">
+            ${player.cash?.toLocaleString()}
+          </span>
+          <span className="text-xs text-[#64748B]">{player.wins}W-{player.losses}L</span>
+        </div>
       </div>
     </nav>
   );

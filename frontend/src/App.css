@@ -1,246 +1,333 @@
-/* ====== TURBO SHOWDOWN - MECHANICAL 3D UI ====== */
+/* ====== TURBO SHOWDOWN — INDUSTRIAL STEEL THEME ====== */
+/* Inspired by Nitto 1320 Legends: brushed metal, chrome, dark navy */
+
+/* ====== GAME CONTAINER ====== */
 .game-container {
   min-height: 100vh;
-  background: #06060a;
+  background: #0B0F19;
   position: relative;
 }
-
-/* Carbon fiber noise texture */
 .game-container::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image:
-    linear-gradient(45deg, rgba(255,255,255,0.008) 25%, transparent 25%),
-    linear-gradient(-45deg, rgba(255,255,255,0.008) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.008) 75%),
-    linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.008) 75%);
-  background-size: 4px 4px;
+  background:
+    radial-gradient(black 15%, transparent 16%) 0 0,
+    radial-gradient(black 15%, transparent 16%) 4px 4px,
+    radial-gradient(rgba(255,255,255,0.02) 15%, transparent 20%) 0 1px,
+    radial-gradient(rgba(255,255,255,0.02) 15%, transparent 20%) 4px 5px;
+  background-size: 8px 8px;
   pointer-events: none;
   z-index: 0;
 }
 
-/* ====== 3D MECHANICAL BUTTONS ====== */
-.btn-mech {
+/* ====== TOP NAVIGATION — NITTO TAB BAR ====== */
+.game-nav {
+  background: linear-gradient(180deg, #1E293B 0%, #0F172A 100%);
+  border-bottom: 2px solid #2D3748;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+.nav-tab {
   font-family: 'Chakra Petch', sans-serif;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 10px 22px;
-  border-radius: 6px;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  padding: 10px 20px;
+  color: #64748B;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+}
+.nav-tab:hover {
+  color: #F1F5F9;
+  background: rgba(255,255,255,0.03);
+}
+.nav-tab.active,
+.nav-tab:focus {
+  color: #FFB300;
+  border-bottom-color: #FFB300;
+  text-shadow: 0 0 10px rgba(255,179,0,0.3);
+}
+.nav-tab::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background: #2D3748;
+}
+.nav-tab:last-child::after {
+  display: none;
+}
+
+/* ====== 3D MECHANICAL BUTTONS ====== */
+.btn-steel {
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 12px 28px;
   cursor: pointer;
   position: relative;
-  transition: all 0.08s ease;
-  background: linear-gradient(180deg, #1e3a1e 0%, #0e2a0e 55%, #062006 100%);
-  border: 1px solid #2a4a2a;
-  border-bottom: 4px solid #031303;
-  box-shadow:
-    0 4px 10px rgba(0,0,0,0.5),
-    0 0 12px rgba(0,255,136,0.04),
-    inset 0 1px 0 rgba(255,255,255,0.06);
-  color: #00ff88;
-  text-shadow: 0 0 8px rgba(0,255,136,0.3);
+  transition: all 0.1s ease;
+  background: linear-gradient(180deg, #334155 0%, #1E293B 60%, #0F172A 100%);
+  border: 1px solid #475569;
+  border-top-color: rgba(255,255,255,0.15);
+  border-bottom: 4px solid #0B0F19;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+  color: #F1F5F9;
+  border-radius: 2px;
 }
-.btn-mech:hover {
-  background: linear-gradient(180deg, #2a4a2a 0%, #1a3a1a 55%, #0e2a0e 100%);
-  border-color: #3a5a3a;
-  box-shadow:
-    0 6px 14px rgba(0,0,0,0.6),
-    0 0 18px rgba(0,255,136,0.08),
-    inset 0 1px 0 rgba(255,255,255,0.08);
+.btn-steel:hover {
+  background: linear-gradient(180deg, #475569 0%, #334155 60%, #1E293B 100%);
+  border-color: #64748B;
+  border-top-color: rgba(255,255,255,0.2);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
   transform: translateY(-1px);
 }
-.btn-mech:active {
-  background: linear-gradient(180deg, #0e2a0e 0%, #062006 55%, #031303 100%);
+.btn-steel:active {
+  background: linear-gradient(180deg, #1E293B 0%, #0F172A 100%);
   border-bottom-width: 1px;
   transform: translateY(3px);
-  box-shadow:
-    0 1px 3px rgba(0,0,0,0.5),
-    inset 0 3px 6px rgba(0,0,0,0.4);
-  text-shadow: 0 0 4px rgba(0,255,136,0.2);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.5), inset 0 3px 8px rgba(0,0,0,0.4);
 }
 
-.btn-mech-red {
-  background: linear-gradient(180deg, #3a1e1e 0%, #2a0e0e 55%, #200606 100%);
-  border: 1px solid #4a2a2a;
-  border-bottom: 4px solid #130303;
-  box-shadow:
-    0 4px 10px rgba(0,0,0,0.5),
-    0 0 12px rgba(255,51,102,0.04),
-    inset 0 1px 0 rgba(255,255,255,0.06);
-  color: #ff3366;
-  text-shadow: 0 0 8px rgba(255,51,102,0.3);
+.btn-amber {
+  background: linear-gradient(180deg, #92400E 0%, #78350F 60%, #451A03 100%);
+  border: 1px solid #B45309;
+  border-top-color: rgba(255,255,255,0.1);
+  border-bottom: 4px solid #1C0A00;
+  color: #FFB300;
+  text-shadow: 0 0 8px rgba(255,179,0,0.3);
 }
-.btn-mech-red:hover {
-  background: linear-gradient(180deg, #4a2a2a 0%, #3a1a1a 55%, #2a0e0e 100%);
-  box-shadow:
-    0 6px 14px rgba(0,0,0,0.6),
-    0 0 18px rgba(255,51,102,0.08),
-    inset 0 1px 0 rgba(255,255,255,0.08);
-  transform: translateY(-1px);
+.btn-amber:hover {
+  background: linear-gradient(180deg, #B45309 0%, #92400E 60%, #78350F 100%);
+  box-shadow: 0 0 20px rgba(255,179,0,0.15), 0 6px 16px rgba(0,0,0,0.6);
 }
-.btn-mech-red:active {
-  background: linear-gradient(180deg, #2a0e0e 0%, #200606 55%, #130303 100%);
+.btn-amber:active {
+  background: linear-gradient(180deg, #78350F 0%, #451A03 100%);
   border-bottom-width: 1px;
   transform: translateY(3px);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.5), inset 0 3px 6px rgba(0,0,0,0.4);
 }
 
-.btn-mech-amber {
-  background: linear-gradient(180deg, #3a2a0e 0%, #2a1a06 55%, #201200 100%);
-  border: 1px solid #4a3a1a;
-  border-bottom: 4px solid #130a00;
-  color: #ffaa00;
-  text-shadow: 0 0 8px rgba(255,170,0,0.3);
+.btn-race-red {
+  background: linear-gradient(180deg, #991B1B 0%, #7F1D1D 60%, #450A0A 100%);
+  border: 1px solid #DC2626;
+  border-top-color: rgba(255,255,255,0.1);
+  border-bottom: 4px solid #1C0000;
+  color: #FCA5A5;
+  text-shadow: 0 0 8px rgba(230,57,70,0.3);
+}
+.btn-race-red:hover {
+  background: linear-gradient(180deg, #DC2626 0%, #991B1B 60%, #7F1D1D 100%);
+  box-shadow: 0 0 20px rgba(230,57,70,0.2), 0 6px 16px rgba(0,0,0,0.6);
+}
+.btn-race-red:active {
+  background: linear-gradient(180deg, #7F1D1D 0%, #450A0A 100%);
+  border-bottom-width: 1px;
+  transform: translateY(3px);
 }
 
-.btn-mech-lg {
-  padding: 16px 36px;
+.btn-race-green {
+  background: linear-gradient(180deg, #166534 0%, #14532D 60%, #052E16 100%);
+  border: 1px solid #22C55E;
+  border-top-color: rgba(255,255,255,0.1);
+  border-bottom: 4px solid #001A00;
+  color: #86EFAC;
+  text-shadow: 0 0 8px rgba(0,204,102,0.3);
+}
+.btn-race-green:hover {
+  background: linear-gradient(180deg, #22C55E 0%, #166534 60%, #14532D 100%);
+  color: #fff;
+}
+
+.btn-lg {
+  padding: 16px 40px;
   font-size: 1.1rem;
   border-bottom-width: 5px;
-  border-radius: 8px;
 }
 
-/* ====== MECHANICAL CARDS ====== */
-.mech-card {
-  background: linear-gradient(180deg, #0e1218 0%, #0a0d10 100%);
-  border: 1px solid #1a2028;
-  border-radius: 8px;
+/* ====== STEEL PANELS / CARDS ====== */
+.steel-card {
+  background: linear-gradient(180deg, #1A2332 0%, #131B27 100%);
+  border: 1px solid #2D3748;
+  border-radius: 2px;
   position: relative;
   overflow: hidden;
-  box-shadow:
-    0 4px 16px rgba(0,0,0,0.4),
-    inset 0 1px 0 rgba(255,255,255,0.02);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04);
   transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
-.mech-card::before {
+.steel-card::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(45deg, rgba(255,255,255,0.006) 25%, transparent 25%),
-    linear-gradient(-45deg, rgba(255,255,255,0.006) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.006) 75%),
-    linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.006) 75%);
-  background-size: 4px 4px;
-  pointer-events: none;
-}
-.mech-card::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 8%; right: 8%;
+  top: 0;
+  left: 8%;
+  right: 8%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
   pointer-events: none;
 }
-.mech-card:hover {
+.steel-card:hover {
   transform: translateY(-2px);
-  border-color: rgba(0,255,136,0.15);
-  box-shadow:
-    0 8px 24px rgba(0,0,0,0.5),
-    0 0 16px rgba(0,255,136,0.03),
-    inset 0 1px 0 rgba(255,255,255,0.03);
+  border-color: #475569;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
 }
-.mech-card-selected {
-  border-color: #00ff88 !important;
-  box-shadow:
-    0 0 20px rgba(0,255,136,0.1),
-    inset 0 0 30px rgba(0,255,136,0.02) !important;
+.steel-card-selected {
+  border-color: #FFB300 !important;
+  box-shadow: 0 0 20px rgba(255,179,0,0.12), 0 4px 16px rgba(0,0,0,0.4) !important;
+}
+.steel-card-selected::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #FFB300, transparent);
 }
 
-/* Bolt decorations on cards */
-.mech-bolts::before, .mech-bolts::after {
+/* Bolt decorations */
+.bolted::before, .bolted::after {
   content: '';
   position: absolute;
-  width: 6px; height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #444, #222);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
+  background: linear-gradient(135deg, #64748B, #334155);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 1px 2px rgba(0,0,0,0.5);
   z-index: 2;
 }
-.mech-bolts::before { top: 8px; right: 8px; }
-.mech-bolts::after { bottom: 8px; left: 8px; }
+.bolted::before { top: 8px; right: 8px; }
+.bolted::after { bottom: 8px; left: 8px; }
 
-/* ====== NEON TEXT ====== */
-.neon-text {
-  color: #00ff88;
-  text-shadow: 0 0 8px rgba(0,255,136,0.4), 0 0 20px rgba(0,255,136,0.15);
+/* ====== METAL PANEL (for info sections) ====== */
+.metal-panel {
+  background: linear-gradient(180deg, #1E293B 0%, #0F172A 100%);
+  border: 1px solid #2D3748;
+  border-left: 3px solid #FFB300;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 2px 8px rgba(0,0,0,0.3);
 }
-.neon-text-red {
-  color: #ff3366;
-  text-shadow: 0 0 8px rgba(255,51,102,0.4), 0 0 20px rgba(255,51,102,0.15);
+
+/* ====== TEXT STYLES ====== */
+.text-amber-glow {
+  color: #FFB300;
+  text-shadow: 0 0 8px rgba(255,179,0,0.4), 0 0 20px rgba(255,179,0,0.15);
 }
-.neon-text-amber {
-  color: #ffaa00;
-  text-shadow: 0 0 8px rgba(255,170,0,0.4), 0 0 20px rgba(255,170,0,0.15);
+.text-red-glow {
+  color: #E63946;
+  text-shadow: 0 0 8px rgba(230,57,70,0.4), 0 0 20px rgba(230,57,70,0.15);
+}
+.text-green-glow {
+  color: #00CC66;
+  text-shadow: 0 0 8px rgba(0,204,102,0.4), 0 0 20px rgba(0,204,102,0.15);
+}
+.text-blue-glow {
+  color: #00A3FF;
+  text-shadow: 0 0 8px rgba(0,163,255,0.4), 0 0 20px rgba(0,163,255,0.15);
+}
+.text-chrome {
+  color: #94A3B8;
 }
 
 /* ====== STAT BARS ====== */
 .stat-bar {
   height: 6px;
-  background: rgba(255,255,255,0.04);
-  border-radius: 3px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 1px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
 }
 .stat-bar-fill {
   height: 100%;
-  border-radius: 2px;
+  border-radius: 0;
   transition: width 0.5s ease;
 }
 
-/* ====== CHRISTMAS TREE ====== */
+/* ====== CHRISTMAS TREE (STAGING LIGHTS) ====== */
 .tree-light {
-  width: 30px; height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.12);
+  border: 2px solid #475569;
   transition: all 0.15s ease;
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
 }
-.tree-light-amber { background: #221500; }
-.tree-light-amber.active { background: #ffaa00; box-shadow: 0 0 20px #ffaa00, 0 0 40px rgba(255,170,0,0.4), inset 0 -2px 4px rgba(0,0,0,0.3); }
-.tree-light-green { background: #002200; }
-.tree-light-green.active { background: #00ff44; box-shadow: 0 0 20px #00ff44, 0 0 40px rgba(0,255,68,0.4), inset 0 -2px 4px rgba(0,0,0,0.3); }
-.tree-light-red { background: #220000; }
-.tree-light-red.active { background: #ff0000; box-shadow: 0 0 20px #ff0000, 0 0 40px rgba(255,0,0,0.4); }
+.tree-light-amber { background: #1C1200; }
+.tree-light-amber.active {
+  background: #FFB300;
+  box-shadow: 0 0 20px #FFB300, 0 0 40px rgba(255,179,0,0.5), inset 0 -2px 4px rgba(0,0,0,0.3);
+}
+.tree-light-green { background: #001A00; }
+.tree-light-green.active {
+  background: #00CC66;
+  box-shadow: 0 0 20px #00CC66, 0 0 40px rgba(0,204,102,0.5), inset 0 -2px 4px rgba(0,0,0,0.3);
+}
+.tree-light-red { background: #1C0000; }
+.tree-light-red.active {
+  background: #E63946;
+  box-shadow: 0 0 20px #E63946, 0 0 40px rgba(230,57,70,0.5);
+}
 
 /* ====== RACE CANVAS ====== */
 .race-canvas-wrapper {
   position: relative;
   width: 100%;
-  background: #06060a;
-  border-radius: 8px;
+  background: #0B0F19;
+  border-radius: 2px;
   overflow: hidden;
-  border: 2px solid #1a1a22;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5), inset 0 0 40px rgba(0,0,0,0.3);
+  border: 2px solid #2D3748;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.6), inset 0 0 40px rgba(0,0,0,0.3);
 }
-.race-canvas { display: block; width: 100%; }
+.race-canvas {
+  display: block;
+  width: 100%;
+}
 
-/* ====== TACHOMETER CANVAS ====== */
+/* ====== TACHOMETER ====== */
 .tach-canvas-wrapper {
   border-radius: 50%;
-  border: 3px solid #2a2a32;
-  box-shadow:
-    0 4px 16px rgba(0,0,0,0.5),
-    inset 0 0 20px rgba(0,0,0,0.5),
-    0 0 2px rgba(255,255,255,0.05);
+  border: 3px solid #475569;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,0,0,0.5), 0 0 2px rgba(255,255,255,0.05);
   overflow: hidden;
+}
+
+/* ====== GAUGE DISPLAY ====== */
+.gauge-display {
+  font-family: 'Chakra Petch', sans-serif;
+  background: linear-gradient(180deg, #0F172A, #0B0F19);
+  border: 2px solid #2D3748;
+  border-radius: 2px;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.3);
+  padding: 8px 16px;
+  text-align: center;
 }
 
 /* ====== SHIFT FLASH ====== */
 @keyframes shiftFlash {
-  0% { opacity: 1; } 100% { opacity: 0; }
+  0% { opacity: 1; }
+  100% { opacity: 0; }
 }
 .shift-flash {
-  position: absolute; inset: 0;
+  position: absolute;
+  inset: 0;
   pointer-events: none;
   animation: shiftFlash 0.25s ease-out forwards;
-  border-radius: 8px;
+  border-radius: 2px;
 }
-.shift-perfect { background: rgba(0,255,136,0.2); border: 2px solid rgba(0,255,136,0.5); }
-.shift-good { background: rgba(0,170,255,0.12); }
-.shift-early { background: rgba(255,170,0,0.12); }
-.shift-bad { background: rgba(255,51,102,0.2); border: 2px solid rgba(255,51,102,0.4); }
+.shift-perfect { background: rgba(0,204,102,0.2); border: 2px solid rgba(0,204,102,0.5); }
+.shift-good { background: rgba(0,163,255,0.15); border: 1px solid rgba(0,163,255,0.3); }
+.shift-early { background: rgba(255,179,0,0.15); border: 1px solid rgba(255,179,0,0.3); }
+.shift-bad { background: rgba(230,57,70,0.2); border: 2px solid rgba(230,57,70,0.4); }
 
 /* ====== ANIMATIONS ====== */
 @keyframes fadeInUp {
@@ -251,83 +338,57 @@
   from { opacity: 0; transform: translateX(24px); }
   to { opacity: 1; transform: translateX(0); }
 }
-@keyframes mechPulse {
-  0%, 100% { box-shadow: 0 0 12px rgba(0,255,136,0.15), 0 4px 10px rgba(0,0,0,0.5); }
-  50% { box-shadow: 0 0 24px rgba(0,255,136,0.3), 0 4px 10px rgba(0,0,0,0.5); }
+@keyframes enginePulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(255,179,0,0.15), 0 4px 12px rgba(0,0,0,0.5); }
+  50% { box-shadow: 0 0 30px rgba(255,179,0,0.3), 0 4px 12px rgba(0,0,0,0.5); }
 }
-.animate-fade-in { animation: fadeInUp 0.35s ease-out; }
-.animate-slide-in { animation: slideInRight 0.35s ease-out; }
-.animate-mech-pulse { animation: mechPulse 2s ease-in-out infinite; }
-
-/* Speed lines */
-@keyframes speedLine {
-  from { transform: translateX(100vw); opacity: 0.2; }
-  to { transform: translateX(-100px); opacity: 0; }
+@keyframes scanline {
+  from { background-position: 0 0; }
+  to { background-position: 0 4px; }
 }
-.speed-line {
-  position: absolute;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0,255,136,0.4), transparent);
-  animation: speedLine 2s linear infinite;
-}
+.animate-fade-in { animation: fadeInUp 0.3s ease-out; }
+.animate-slide-in { animation: slideInRight 0.3s ease-out; }
+.animate-engine-pulse { animation: enginePulse 2s ease-in-out infinite; }
 
 /* ====== TIER BADGES ====== */
 .tier-ebay {
-  background: rgba(255,170,0,0.12);
-  color: #ffaa00;
-  border: 1px solid rgba(255,170,0,0.25);
-  border-radius: 4px;
+  background: rgba(255,179,0,0.12);
+  color: #FFB300;
+  border: 1px solid rgba(255,179,0,0.25);
+  border-radius: 2px;
+  padding: 2px 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
 }
 .tier-rockauto {
-  background: rgba(0,170,255,0.12);
-  color: #00aaff;
-  border: 1px solid rgba(0,170,255,0.25);
-  border-radius: 4px;
+  background: rgba(0,163,255,0.12);
+  color: #00A3FF;
+  border: 1px solid rgba(0,163,255,0.25);
+  border-radius: 2px;
+  padding: 2px 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
 }
 .tier-performance {
-  background: rgba(0,255,136,0.12);
-  color: #00ff88;
-  border: 1px solid rgba(0,255,136,0.25);
-  border-radius: 4px;
+  background: rgba(0,204,102,0.12);
+  color: #00CC66;
+  border: 1px solid rgba(0,204,102,0.25);
+  border-radius: 2px;
+  padding: 2px 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
 }
 
-/* ====== NAV BAR ====== */
-.game-nav {
-  background: linear-gradient(180deg, rgba(10,10,14,0.95), rgba(6,6,10,0.98));
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid #1a1a22;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-  position: sticky; top: 0; z-index: 40;
-}
-
-/* ====== DIFFICULTY BADGES ====== */
-.difficulty-easy { border-left: 3px solid #00ff88; }
-.difficulty-easy .diff-badge { background: rgba(0,255,136,0.12); color: #00ff88; }
-.difficulty-medium { border-left: 3px solid #ffaa00; }
-.difficulty-medium .diff-badge { background: rgba(255,170,0,0.12); color: #ffaa00; }
-.difficulty-hard { border-left: 3px solid #ff3366; }
-.difficulty-hard .diff-badge { background: rgba(255,51,102,0.12); color: #ff3366; }
-
-/* ====== METALLIC PANELS ====== */
-.metal-panel {
-  background: linear-gradient(180deg, #14161a, #0e1014);
-  border: 1px solid #22262c;
-  border-radius: 6px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03), 0 2px 8px rgba(0,0,0,0.3);
-}
-
-/* ====== GAUGE DISPLAY ====== */
-.gauge-display {
-  font-family: 'Chakra Petch', sans-serif;
-  background: linear-gradient(180deg, #0a0c10, #060810);
-  border: 2px solid #1a1e24;
-  border-radius: 6px;
-  box-shadow: inset 0 2px 8px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3);
-  padding: 8px 16px;
-  text-align: center;
-}
+/* ====== DIFFICULTY MARKERS ====== */
+.diff-easy { border-left: 3px solid #00CC66; }
+.diff-easy .diff-label { background: rgba(0,204,102,0.12); color: #00CC66; }
+.diff-medium { border-left: 3px solid #FFB300; }
+.diff-medium .diff-label { background: rgba(255,179,0,0.12); color: #FFB300; }
+.diff-hard { border-left: 3px solid #E63946; }
+.diff-hard .diff-label { background: rgba(230,57,70,0.12); color: #E63946; }
 
 /* ====== RESPONSIVE ====== */
 @media (max-width: 768px) {
-  .btn-mech-lg { padding: 12px 24px; font-size: 1rem; }
+  .btn-lg { padding: 12px 24px; font-size: 1rem; }
+  .nav-tab { padding: 8px 12px; font-size: 0.7rem; }
 }

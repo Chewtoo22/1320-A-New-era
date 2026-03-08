@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGame, API } from "@/App";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import axios from "axios";
 
-const DIFF_COLORS = { easy: "difficulty-easy", medium: "difficulty-medium", hard: "difficulty-hard" };
-const DIFF_LABELS = { easy: "Street League", medium: "Underground", hard: "Elite" };
+const DIFF_CLASS = { easy: "diff-easy", medium: "diff-medium", hard: "diff-hard" };
 
 export default function TournamentHub() {
   const { player, selectedCar } = useGame();
@@ -33,7 +30,6 @@ export default function TournamentHub() {
       toast.error("Select a car from your garage first!");
       return;
     }
-
     const isBoss = raceIndex >= tournament.racers.length;
     const opponent = isBoss ? tournament.boss : tournament.racers[raceIndex];
     const prize = isBoss ? tournament.tournament_bonus : tournament.prize_per_race;
@@ -46,7 +42,8 @@ export default function TournamentHub() {
           et: opponent.et,
           trap: opponent.trap,
           car_color: opponent.car_color,
-          bodyType: opponent.bodyType
+          bodyType: opponent.bodyType,
+          difficulty: tournament.difficulty
         },
         raceType: "tournament",
         prize,
@@ -60,17 +57,20 @@ export default function TournamentHub() {
   if (!player) return null;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 animate-fade-in" data-testid="tournament-hub">
+    <div className="max-w-6xl mx-auto px-6 py-8 animate-fade-in" data-testid="tournament-hub">
+      {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-wide" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>Tournaments</h1>
-          <p className="text-gray-500 text-sm mt-1">Prove your worth on the quarter mile</p>
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight uppercase" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>
+            Race Track
+          </h1>
+          <p className="text-[#64748B] text-sm mt-1">Prove your worth on the quarter mile</p>
         </div>
         {selectedCar && (
-          <div className="text-right">
-            <p className="text-xs text-gray-500">Racing with</p>
-            <p className="text-sm font-bold">{selectedCar.catalog.name}</p>
-            <p className="text-xs neon-text">{selectedCar.effective_stats.effectiveET}s ET</p>
+          <div className="metal-panel px-4 py-3 text-right">
+            <p className="text-[0.65rem] text-[#64748B] uppercase tracking-wider font-bold">Racing With</p>
+            <p className="text-sm font-bold" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>{selectedCar.catalog.name}</p>
+            <p className="text-xs text-[#00CC66]">{selectedCar.effective_stats.effectiveET}s ET | {selectedCar.effective_stats.effectiveHP} HP</p>
           </div>
         )}
       </div>
@@ -84,77 +84,79 @@ export default function TournamentHub() {
             const totalRaces = t.racers.length + 1;
 
             return (
-              <Card key={t.id} className={`game-card ${DIFF_COLORS[t.difficulty]} border-l-4`} data-testid={`tournament-card-${i}`}>
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <h2 className="text-xl font-bold" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>{t.name}</h2>
-                    <Badge className={`diff-badge text-xs`}>
-                      {t.difficulty.toUpperCase()}
-                    </Badge>
+              <div key={t.id} className={`steel-card ${DIFF_CLASS[t.difficulty]} border-l-4 p-6`} data-testid={`tournament-card-${i}`}>
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="text-xl font-bold uppercase" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>{t.name}</h2>
+                  <span className="diff-label text-xs font-bold px-2 py-1 rounded-sm uppercase">{t.difficulty}</span>
+                </div>
+
+                <p className="text-sm text-[#94A3B8] mb-4">{t.description}</p>
+
+                <div className="space-y-2 mb-4 text-xs">
+                  <div className="flex justify-between text-[#94A3B8]">
+                    <span>Races</span>
+                    <span className="text-[#F1F5F9]">{totalRaces} (8 + Boss)</span>
                   </div>
-
-                  <p className="text-sm text-gray-400 mb-4">{t.description}</p>
-
-                  <div className="space-y-2 mb-4 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-gray-500">Races</span>
-                      <span>{totalRaces} (8 + Boss)</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-500">Prize per Race</span>
-                      <span className="neon-text">${t.prize_per_race.toLocaleString()}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-500">Tournament Bonus</span>
-                      <span className="neon-text">${t.tournament_bonus.toLocaleString()}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-500">Recommended ET</span>
-                      <span>{t.recommended_et}s or faster</span>
-                    </div>
+                  <div className="flex justify-between text-[#94A3B8]">
+                    <span>Prize per Race</span>
+                    <span className="text-amber-glow">${t.prize_per_race.toLocaleString()}</span>
                   </div>
-
-                  {/* Progress bar */}
-                  <div className="mb-4">
-                    <div className="flex justify-between text-xs text-gray-500 mb-1">
-                      <span>Progress</span>
-                      <span>{currentRace}/{totalRaces}</span>
-                    </div>
-                    <div className="stat-bar">
-                      <div className="stat-bar-fill" style={{
-                        width: `${(currentRace / totalRaces) * 100}%`,
-                        backgroundColor: completed ? 'var(--neon-green)' : 'var(--neon-amber)'
-                      }} />
-                    </div>
+                  <div className="flex justify-between text-[#94A3B8]">
+                    <span>Tournament Bonus</span>
+                    <span className="text-amber-glow">${t.tournament_bonus.toLocaleString()}</span>
                   </div>
-
-                  {/* Boss preview */}
-                  <div className="bg-white/5 rounded p-3 mb-4">
-                    <p className="text-xs text-gray-500 mb-1">Boss: {t.boss.title}</p>
-                    <p className="text-sm font-bold">{t.boss.name}</p>
-                    <p className="text-xs text-gray-500">{t.boss.car}</p>
+                  <div className="flex justify-between text-[#94A3B8]">
+                    <span>Recommended ET</span>
+                    <span className="text-[#F1F5F9]">{t.recommended_et}s or faster</span>
                   </div>
+                </div>
 
-                  <Button
-                    onClick={() => setSelectedTournament(t)}
-                    className={`w-full rounded ${completed ? 'bg-emerald-500/10 text-emerald-400' : 'btn-neon'}`}
-                    data-testid={`enter-tournament-${i}`}
-                  >
-                    {completed ? "Completed! Race Again" : currentRace > 0 ? "Continue" : "Enter"}
-                  </Button>
-                </CardContent>
-              </Card>
+                {/* Progress bar */}
+                <div className="mb-4">
+                  <div className="flex justify-between text-xs text-[#64748B] mb-1">
+                    <span>Progress</span>
+                    <span>{currentRace}/{totalRaces}</span>
+                  </div>
+                  <div className="stat-bar">
+                    <div className="stat-bar-fill" style={{
+                      width: `${(currentRace / totalRaces) * 100}%`,
+                      backgroundColor: completed ? '#00CC66' : '#FFB300'
+                    }} />
+                  </div>
+                </div>
+
+                {/* Boss preview */}
+                <div className="bg-[#0B0F19] rounded-sm p-3 mb-4 border border-[#2D3748]">
+                  <p className="text-[0.65rem] text-[#64748B] mb-1 uppercase tracking-wider font-bold">Boss: {t.boss.title}</p>
+                  <p className="text-sm font-bold" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>{t.boss.name}</p>
+                  <p className="text-xs text-[#64748B]">{t.boss.car}</p>
+                </div>
+
+                <button
+                  onClick={() => setSelectedTournament(t)}
+                  className={`w-full ${completed ? 'btn-race-green btn-steel' : 'btn-amber btn-steel'}`}
+                  data-testid={`enter-tournament-${i}`}
+                >
+                  {completed ? "Completed! Race Again" : currentRace > 0 ? "Continue" : "Enter"}
+                </button>
+              </div>
             );
           })}
         </div>
       ) : (
         <div className="animate-slide-in" data-testid="tournament-bracket">
-          <Button variant="ghost" onClick={() => setSelectedTournament(null)} className="text-gray-400 mb-6" data-testid="back-to-tournaments">
+          <button
+            onClick={() => setSelectedTournament(null)}
+            className="btn-steel text-xs mb-6"
+            data-testid="back-to-tournaments"
+          >
             Back to Tournaments
-          </Button>
+          </button>
 
-          <h2 className="text-2xl font-bold mb-2" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>{selectedTournament.name}</h2>
-          <p className="text-gray-500 text-sm mb-6">{selectedTournament.description}</p>
+          <h2 className="text-2xl font-bold mb-2 uppercase" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>
+            {selectedTournament.name}
+          </h2>
+          <p className="text-[#94A3B8] text-sm mb-6">{selectedTournament.description}</p>
 
           <div className="space-y-3">
             {selectedTournament.racers.map((racer, i) => {
@@ -165,31 +167,35 @@ export default function TournamentHub() {
               const isLocked = i > currentRace;
 
               return (
-                <div key={i} className={`game-card p-4 flex items-center justify-between rounded-lg ${isNext ? 'neon-border' : ''} ${isLocked ? 'opacity-40' : ''}`} data-testid={`bracket-race-${i}`}>
+                <div
+                  key={i}
+                  className={`steel-card p-4 flex items-center justify-between ${isNext ? 'steel-card-selected' : ''} ${isLocked ? 'opacity-40' : ''}`}
+                  data-testid={`bracket-race-${i}`}
+                >
                   <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
+                    <div className="w-8 h-8 rounded-sm flex items-center justify-center text-sm font-bold bg-[#0B0F19] border border-[#2D3748]" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>
                       {i + 1}
                     </div>
                     <div>
-                      <p className="font-semibold text-sm">{racer.name}</p>
-                      <p className="text-xs text-gray-500">{racer.car}</p>
+                      <p className="font-bold text-sm uppercase" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>{racer.name}</p>
+                      <p className="text-xs text-[#64748B]">{racer.car}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-xs text-gray-500">{racer.et}s ET</span>
-                    {isCompleted && <Badge className="bg-emerald-500/20 text-emerald-400 text-xs">Won</Badge>}
+                    <span className="text-xs text-[#94A3B8] font-mono">{racer.et}s ET</span>
+                    {isCompleted && <Badge className="bg-[#00CC66]/15 text-[#00CC66] border-[#00CC66]/30 text-xs">Won</Badge>}
                     {isNext && (
-                      <Button size="sm" onClick={() => startTournamentRace(selectedTournament, i)} className="btn-neon-red rounded text-xs" data-testid={`race-opponent-${i}`}>
+                      <button onClick={() => startTournamentRace(selectedTournament, i)} className="btn-race-red btn-steel text-xs" data-testid={`race-opponent-${i}`}>
                         Race
-                      </Button>
+                      </button>
                     )}
-                    {isLocked && <Badge variant="secondary" className="text-xs">Locked</Badge>}
+                    {isLocked && <span className="text-xs text-[#475569]">Locked</span>}
                   </div>
                 </div>
               );
             })}
 
-            {/* Boss */}
+            {/* Boss Fight */}
             {(() => {
               const prog = progress[selectedTournament.id];
               const currentRace = prog?.current_race || 0;
@@ -198,24 +204,33 @@ export default function TournamentHub() {
               const boss = selectedTournament.boss;
 
               return (
-                <div className={`game-card p-4 flex items-center justify-between rounded-lg border-l-4 ${bossCompleted ? 'border-l-emerald-500' : 'border-l-red-500'} ${!isBossNext && !bossCompleted ? 'opacity-40' : ''}`} data-testid="boss-race">
+                <div
+                  className={`steel-card p-4 flex items-center justify-between border-l-4 ${
+                    bossCompleted ? 'border-l-[#00CC66]' : 'border-l-[#E63946]'
+                  } ${!isBossNext && !bossCompleted ? 'opacity-40' : ''}`}
+                  data-testid="boss-race"
+                >
                   <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-red-500/20 text-red-400">
+                    <div className="w-8 h-8 rounded-sm flex items-center justify-center text-sm font-bold bg-[#E63946]/15 text-[#E63946] border border-[#E63946]/30" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>
                       B
                     </div>
                     <div>
-                      <p className="font-bold text-sm neon-text-red">{boss.name}</p>
-                      <p className="text-xs text-gray-500">{boss.car}</p>
-                      <p className="text-xs text-gray-600 italic">"{boss.taunt}"</p>
+                      <p className="font-bold text-sm text-[#E63946] uppercase" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>{boss.name}</p>
+                      <p className="text-xs text-[#64748B]">{boss.car}</p>
+                      <p className="text-xs text-[#475569] italic mt-0.5">"{boss.taunt}"</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-xs neon-text-red">{boss.et}s ET</span>
-                    {bossCompleted && <Badge className="bg-emerald-500/20 text-emerald-400 text-xs">Defeated</Badge>}
+                    <span className="text-xs text-[#E63946] font-mono">{boss.et}s ET</span>
+                    {bossCompleted && <Badge className="bg-[#00CC66]/15 text-[#00CC66] border-[#00CC66]/30 text-xs">Defeated</Badge>}
                     {isBossNext && !bossCompleted && (
-                      <Button size="sm" onClick={() => startTournamentRace(selectedTournament, selectedTournament.racers.length)} className="btn-neon-red rounded text-xs animate-pulse-glow" data-testid="race-boss-btn">
+                      <button
+                        onClick={() => startTournamentRace(selectedTournament, selectedTournament.racers.length)}
+                        className="btn-race-red btn-steel text-xs animate-engine-pulse"
+                        data-testid="race-boss-btn"
+                      >
                         Challenge Boss
-                      </Button>
+                      </button>
                     )}
                   </div>
                 </div>
