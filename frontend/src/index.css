@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Barlow:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --neon-green: #00ff88;
+  --neon-red: #ff3366;
+  --neon-amber: #ffaa00;
+  --neon-blue: #00aaff;
+  --bg-deep: #08080c;
+  --bg-card: rgba(14, 14, 22, 0.92);
+  --bg-card-hover: rgba(20, 20, 32, 0.95);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --text-primary: #e8e8f0;
+  --text-muted: #6a6a82;
+}
+
+body {
+  margin: 0;
+  font-family: 'Barlow', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+@layer base {
+  :root {
+    --background: 230 20% 4%;
+    --foreground: 230 20% 92%;
+    --card: 230 20% 6%;
+    --card-foreground: 230 20% 92%;
+    --popover: 230 20% 6%;
+    --popover-foreground: 230 20% 92%;
+    --primary: 150 100% 50%;
+    --primary-foreground: 230 20% 4%;
+    --secondary: 230 15% 12%;
+    --secondary-foreground: 230 20% 92%;
+    --muted: 230 15% 12%;
+    --muted-foreground: 230 15% 45%;
+    --accent: 150 100% 50%;
+    --accent-foreground: 230 20% 4%;
+    --destructive: 345 100% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 230 15% 12%;
+    --input: 230 15% 12%;
+    --ring: 150 100% 50%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer base {
+  [data-debug-wrapper="true"] {
+    display: contents !important;
+  }
+  [data-debug-wrapper="true"] > * {
+    margin-left: inherit; margin-right: inherit; margin-top: inherit; margin-bottom: inherit;
+    padding-left: inherit; padding-right: inherit; padding-top: inherit; padding-bottom: inherit;
+    column-gap: inherit; row-gap: inherit; gap: inherit;
+    border-left-width: inherit; border-right-width: inherit; border-top-width: inherit; border-bottom-width: inherit;
+    border-left-style: inherit; border-right-style: inherit; border-top-style: inherit; border-bottom-style: inherit;
+    border-left-color: inherit; border-right-color: inherit; border-top-color: inherit; border-bottom-color: inherit;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
