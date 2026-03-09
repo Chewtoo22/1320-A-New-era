@@ -52,7 +52,7 @@ class TurboShowdownAPITester:
                     response_json = response.json()
                     self.log_test(name, True, f"Status {response.status_code}", response_json)
                     return True, response_json
-                except:
+                except Exception:
                     self.log_test(name, True, f"Status {response.status_code}", {})
                     return True, {}
             else:
@@ -60,7 +60,7 @@ class TurboShowdownAPITester:
                 try:
                     error_detail = response.json().get('detail', 'Unknown error')
                     error_msg += f" - {error_detail}"
-                except:
+                except Exception:
                     error_msg += f" - Response: {response.text[:200]}"
                 
                 self.log_test(name, False, error_msg)
