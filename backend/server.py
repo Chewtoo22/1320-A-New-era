@@ -303,6 +303,48 @@ async def get_race_history(player_id: str):
     ).sort("created_at", -1).to_list(50)
     return history
 
+@api_router.post("/race/simulate")
+async def simulate_race(req: RaceSimulateRequest):
+    player = await db.players.find_one({"id": req.player_id}, {"_id": 0})
+    if not player:
+        raise HTTPException(status_code=404, detail="Player not found")
+
+    player_car = await db.player_cars.find_one(
+        {"id": req.player_car_id, "player_id": req.player_id},
+        {"_id": 0}
+    )
+    if not player_car:
+        raise HTTPException(status_code=404, detail="Car not found in garage")
+
+    cat = CAR_CATALOG.get(player_car["car_id"])
+    if not cat:
+        raise HTTPException(status_code=404, detail="Player car_id not found in catalog")
+
+    player_effective = calculate_effective_stats(cat, player_car.get("upgrades", {}))
+
+    if req.opponent_car_id:
+        opp_cat = CAR_CATALOG.get(req.opponent_car_id)
+        if not opp_cat:
+            raise HTTPException(status_code=404, detail="Opponent car_id not found in catalog")
+        opponent_effective = calculate_effective_stats(opp_cat, {})
+        opponent_label = opp_cat.get("name", req.opponent_car_id)
+    elif req.opponent_stats:
+        opponent_effective = req.opponent_stats
+        opponent_label = req.opponent_stats.get("name", "Opponent")
+    else:
+        raise HTTPException(status_code=400, detail="Must provide opponent_car_id or opponent_stats")
+
+    sim = simulate_quarter_mile(player_effective, opponent_effective, seed=req.seed)
+
+    return {
+        "player_id": req.player_id,
+        "player_car_id": req.player_car_id,
+        "opponent_label": opponent_label,
+        "simulation": sim,
+        "player_effective_stats": player_effective,
+        "opponent_effective_stats": opponent_effective,
+    }
+
 # --- Tournament Routes ---
 @api_router.get("/tournaments")
 async def get_tournaments():
