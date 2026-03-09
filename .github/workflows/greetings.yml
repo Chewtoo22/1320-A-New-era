@@ -15,7 +15,7 @@ jobs:
         issue-message: "Message that will be displayed on users' first issue"
         pr-message: "Message that will be displayed on users' first pull request"
 
-              - name: Xanitizer Security Analysis
+  name: Xanitizer Security Analysis
   # You may pin to the exact commit or the version.
   # uses: RIGS-IT/xanitizer-action@87d13138fb113b727cbe040c744a15a2b4fe5316
   uses: RIGS-IT/xanitizer-action@v1.0.1
