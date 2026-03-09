@@ -24,6 +24,13 @@ app = FastAPI()
 api_router = APIRouter(prefix="/api")
 
 # --- Models ---
+class RaceSimulateRequest(BaseModel):
+    player_id: str
+    player_car_id: str
+    opponent_car_id: Optional[str] = None
+    opponent_stats: Optional[Dict] = None
+    seed: Optional[int] = None
+
 class PlayerCreate(BaseModel):
     username: str
 
