@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from game_data import CAR_CATALOG, BOSS_CARS, TOURNAMENTS, calculate_effective_stats
+from game_data import CAR_CATALOG, BOSS_CARS, TOURNAMENTS
 from backend.race_engine import simulate_quarter_mile
 
 app = Flask(__name__)
@@ -17,6 +17,8 @@ def calculate_race_results(race_info):
         player_stats (dict): Stats for the player's car (hp, weight, etc.).
         opponent_stats (dict): Stats for the opponent's car.
     """
+    if not isinstance(race_info, dict):
+        raise ValueError("Request body must be a JSON object")
     player = race_info.get('player_stats')
     opponent = race_info.get('opponent_stats')
     if not isinstance(player, dict) or not isinstance(opponent, dict):
@@ -44,7 +46,7 @@ def start_race():
 
 @app.route('/api/race/complete', methods=['POST'])
 def complete_race():
-    race_info = request.json
+    race_info = request.get_json(silent=True)
     try:
         results = calculate_race_results(race_info)
     except ValueError as exc:
