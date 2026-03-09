@@ -280,88 +280,253 @@ BOSS_CARS: Dict[str, Dict[str, Any]] = {
 
 # ---------------------------
 # Parts / upgrades
-# Each upgrade tier provides an hp/weight delta.
+# Each upgrade tier includes display info and performance deltas.
 # server.py expects PARTS_CATALOG[part_key]["tiers"][tier]["price"]
 # ---------------------------
 PARTS_CATALOG: Dict[str, Dict[str, Any]] = {
     "intake": {
         "name": "Air Intake",
         "tiers": {
-            "ebay": {"price": 200, "hp": 5},
-            "rockauto": {"price": 750, "hp": 10},
-            "performance": {"price": 1800, "hp": 18},
+            "ebay": {
+                "name": "eBay Cold Air Intake",
+                "price": 200,
+                "hp_bonus": 5,
+                "speed_increase": 1.0,
+                "et_reduction": 0.05,
+            },
+            "rockauto": {
+                "name": "RockAuto Intake Kit",
+                "price": 750,
+                "hp_bonus": 10,
+                "speed_increase": 2.0,
+                "et_reduction": 0.1,
+            },
+            "performance": {
+                "name": "Performance Carbon Intake",
+                "price": 1800,
+                "hp_bonus": 18,
+                "speed_increase": 3.0,
+                "et_reduction": 0.18,
+            },
         },
     },
     "exhaust": {
         "name": "Exhaust",
         "tiers": {
-            "ebay": {"price": 350, "hp": 5},
-            "rockauto": {"price": 1100, "hp": 12},
-            "performance": {"price": 2800, "hp": 22},
+            "ebay": {
+                "name": "Axle-back Exhaust",
+                "price": 350,
+                "hp_bonus": 6,
+                "speed_increase": 1.0,
+                "et_reduction": 0.05,
+            },
+            "rockauto": {
+                "name": "Cat-back System",
+                "price": 1100,
+                "hp_bonus": 14,
+                "speed_increase": 2.5,
+                "et_reduction": 0.12,
+            },
+            "performance": {
+                "name": "3\" Turbo-back Exhaust",
+                "price": 2800,
+                "hp_bonus": 26,
+                "speed_increase": 4.0,
+                "et_reduction": 0.2,
+            },
         },
     },
     "turbo": {
         "name": "Forced Induction",
         "tiers": {
-            "ebay": {"price": 1200, "hp": 25},
-            "rockauto": {"price": 3500, "hp": 45},
-            "performance": {"price": 8000, "hp": 80},
+            "ebay": {
+                "name": "Budget Turbo Kit",
+                "price": 1200,
+                "hp_bonus": 35,
+                "speed_increase": 4.0,
+                "et_reduction": 0.25,
+            },
+            "rockauto": {
+                "name": "Street Turbo Kit",
+                "price": 3500,
+                "hp_bonus": 65,
+                "speed_increase": 6.0,
+                "et_reduction": 0.45,
+            },
+            "performance": {
+                "name": "Race Turbo Kit",
+                "price": 8000,
+                "hp_bonus": 110,
+                "speed_increase": 8.0,
+                "et_reduction": 0.75,
+            },
         },
     },
     "ecu": {
         "name": "ECU Tune",
         "tiers": {
-            "ebay": {"price": 150, "hp": 4},
-            "rockauto": {"price": 900, "hp": 12},
-            "performance": {"price": 2500, "hp": 25},
+            "ebay": {
+                "name": "Stage 1 Tune",
+                "price": 150,
+                "hp_bonus": 6,
+                "speed_increase": 0.5,
+                "et_reduction": 0.04,
+            },
+            "rockauto": {
+                "name": "Stage 2 Tune",
+                "price": 900,
+                "hp_bonus": 15,
+                "speed_increase": 1.0,
+                "et_reduction": 0.08,
+            },
+            "performance": {
+                "name": "Pro Dyno Tune",
+                "price": 2500,
+                "hp_bonus": 28,
+                "speed_increase": 2.0,
+                "et_reduction": 0.14,
+            },
         },
     },
     "clutch": {
         "name": "Clutch",
         "tiers": {
-            "ebay": {"price": 250, "hp": 0},
-            "rockauto": {"price": 850, "hp": 0},
-            "performance": {"price": 2000, "hp": 0},
+            "ebay": {
+                "name": "Street Clutch",
+                "price": 250,
+                "grip_bonus": 0.01,
+                "et_reduction": 0.02,
+            },
+            "rockauto": {
+                "name": "Stage 2 Clutch",
+                "price": 850,
+                "grip_bonus": 0.02,
+                "et_reduction": 0.04,
+            },
+            "performance": {
+                "name": "Twin-Disc Drag Clutch",
+                "price": 2000,
+                "grip_bonus": 0.03,
+                "et_reduction": 0.06,
+            },
         },
     },
     "transmission": {
         "name": "Transmission",
         "tiers": {
-            "ebay": {"price": 650, "hp": 0},
-            "rockauto": {"price": 1800, "hp": 0},
-            "performance": {"price": 5000, "hp": 0},
+            "ebay": {
+                "name": "Short Shifter",
+                "price": 650,
+                "speed_increase": 0.5,
+                "et_reduction": 0.03,
+            },
+            "rockauto": {
+                "name": "Performance Gear Set",
+                "price": 1800,
+                "speed_increase": 1.5,
+                "et_reduction": 0.06,
+            },
+            "performance": {
+                "name": "Dogbox Transmission",
+                "price": 5000,
+                "speed_increase": 3.0,
+                "et_reduction": 0.1,
+            },
         },
     },
     "suspension": {
         "name": "Suspension",
         "tiers": {
-            "ebay": {"price": 300, "hp": 0},
-            "rockauto": {"price": 1200, "hp": 0},
-            "performance": {"price": 2200, "hp": 0},
+            "ebay": {
+                "name": "Lowering Springs",
+                "price": 300,
+                "grip_bonus": 0.01,
+                "et_reduction": 0.02,
+            },
+            "rockauto": {
+                "name": "Coilovers",
+                "price": 1200,
+                "grip_bonus": 0.025,
+                "et_reduction": 0.04,
+            },
+            "performance": {
+                "name": "Drag Coilovers",
+                "price": 2200,
+                "grip_bonus": 0.04,
+                "et_reduction": 0.06,
+            },
         },
     },
     "tires": {
         "name": "Tires",
         "tiers": {
-            "ebay": {"price": 300, "hp": 0},
-            "rockauto": {"price": 800, "hp": 0},
-            "performance": {"price": 1500, "hp": 0},
+            "ebay": {
+                "name": "All-Season Street",
+                "price": 300,
+                "grip_bonus": 0.015,
+                "et_reduction": 0.02,
+            },
+            "rockauto": {
+                "name": "Ultra High Performance",
+                "price": 800,
+                "grip_bonus": 0.03,
+                "et_reduction": 0.05,
+            },
+            "performance": {
+                "name": "Drag Radials",
+                "price": 1500,
+                "grip_bonus": 0.05,
+                "et_reduction": 0.08,
+            },
         },
     },
     "weight_reduction": {
         "name": "Weight Reduction",
         "tiers": {
-            "ebay": {"price": 0, "weight": -50},
-            "rockauto": {"price": 1200, "weight": -120},
-            "performance": {"price": 3000, "weight": -220},
+            "ebay": {
+                "name": "Interior Strip",
+                "price": 0,
+                "weight_reduction": 50,
+                "et_reduction": 0.05,
+            },
+            "rockauto": {
+                "name": "Lightweight Panels",
+                "price": 1200,
+                "weight_reduction": 120,
+                "et_reduction": 0.12,
+            },
+            "performance": {
+                "name": "Full Carbon Kit",
+                "price": 3000,
+                "weight_reduction": 220,
+                "et_reduction": 0.2,
+            },
         },
     },
     "nitrous": {
         "name": "Nitrous",
         "tiers": {
-            "ebay": {"price": 500, "hp": 20},
-            "rockauto": {"price": 1500, "hp": 40},
-            "performance": {"price": 3500, "hp": 70},
+            "ebay": {
+                "name": "50 Shot Wet Kit",
+                "price": 500,
+                "hp_bonus": 20,
+                "speed_increase": 2.0,
+                "et_reduction": 0.12,
+            },
+            "rockauto": {
+                "name": "100 Shot Kit",
+                "price": 1500,
+                "hp_bonus": 40,
+                "speed_increase": 3.5,
+                "et_reduction": 0.22,
+            },
+            "performance": {
+                "name": "200 Shot Progressive",
+                "price": 3500,
+                "hp_bonus": 70,
+                "speed_increase": 5.0,
+                "et_reduction": 0.35,
+            },
         },
     },
 }
@@ -380,23 +545,89 @@ TOURNAMENTS = [
     {
         "id": "street_league",
         "name": "Street League",
+        "description": "Back-alley grudge matches and cash days for newcomers finding their rhythm.",
         "difficulty": "easy",
+        "recommended_et": 14.5,
         "prize_per_race": 500,
         "tournament_bonus": 10000,
+        "racers": [
+            {"name": "Alley Cat", "car": "Honda Civic Si", "et": 15.6, "trap": 91, "car_color": "#cc0000", "bodyType": "sedan"},
+            {"name": "Wrench Willa", "car": "Chevy S-10 Mini Truck", "et": 16.1, "trap": 87, "car_color": "#225522", "bodyType": "truck"},
+            {"name": "Backroad Ben", "car": "Ford Bronco Wildtrack", "et": 14.9, "trap": 96, "car_color": "#996633", "bodyType": "suv"},
+            {"name": "Downtown Dee", "car": "Datsun 240Z", "et": 15.0, "trap": 90, "car_color": "#ff4400", "bodyType": "coupe"},
+            {"name": "Low Boost Leo", "car": "Mazda RX-7", "et": 14.4, "trap": 101, "car_color": "#ffffff", "bodyType": "coupe"},
+            {"name": "Midnight Mina", "car": "Pontiac Trans Am KITT", "et": 14.1, "trap": 103, "car_color": "#111111", "bodyType": "coupe"},
+            {"name": "Evo Nate", "car": "Mitsubishi Lancer Evo IX", "et": 13.8, "trap": 104, "car_color": "#0044cc", "bodyType": "sedan"},
+            {"name": "Raptor Ray", "car": "Ford F-150 Raptor", "et": 13.6, "trap": 106, "car_color": "#334455", "bodyType": "truck"},
+        ],
+        "boss": {
+            "title": "Garage Legend",
+            "name": "Street King Kenny",
+            "car": "2000 SVT Contour",
+            "et": 13.4,
+            "trap": 108,
+            "car_color": "#ffb300",
+            "bodyType": "sedan",
+            "taunt": "Show me you can hang with the big kids.",
+        },
     },
     {
         "id": "underground_circuit",
         "name": "Underground Circuit",
+        "description": "Closed warehouse lots and midnight beltway pulls with faster, tuned builds.",
         "difficulty": "medium",
+        "recommended_et": 12.5,
         "prize_per_race": 750,
         "tournament_bonus": 20000,
+        "racers": [
+            {"name": "Turbo Tasha", "car": "BMW M3 E30", "et": 13.5, "trap": 104, "car_color": "#003399", "bodyType": "coupe"},
+            {"name": "Circuit Cyrus", "car": "Pontiac Trans Am KITT", "et": 13.3, "trap": 105, "car_color": "#111111", "bodyType": "coupe"},
+            {"name": "Grip Greg", "car": "Jeep Grand Cherokee SRT", "et": 12.9, "trap": 112, "car_color": "#222222", "bodyType": "suv"},
+            {"name": "Stage3 Sara", "car": "Dodge Charger R/T", "et": 12.6, "trap": 114, "car_color": "#880000", "bodyType": "sedan"},
+            {"name": "Trackside Toni", "car": "Chevrolet Camaro ZL1", "et": 12.2, "trap": 120, "car_color": "#ffcc00", "bodyType": "coupe"},
+            {"name": "Voltage Vic", "car": "Tesla Model S Plaid", "et": 11.6, "trap": 126, "car_color": "#e8e8e8", "bodyType": "sedan"},
+            {"name": "Countess Cleo", "car": "Lamborghini Countach", "et": 11.9, "trap": 118, "car_color": "#ffdd00", "bodyType": "coupe"},
+            {"name": "Midnight Mike", "car": "R34 GT-R Midnight Tune", "et": 11.2, "trap": 125, "car_color": "#1c1c3a", "bodyType": "coupe"},
+        ],
+        "boss": {
+            "title": "Shadow Warden",
+            "name": "Ghost GTR",
+            "car": "Skyline GT-R V-Spec",
+            "et": 10.9,
+            "trap": 129,
+            "car_color": "#0f172a",
+            "bodyType": "coupe",
+            "taunt": "No one outruns the ghost.",
+        },
     },
     {
         "id": "elite_championship",
         "name": "Elite Championship",
+        "description": "Invite-only cash games with the fastest cars in the city. No excuses.",
         "difficulty": "hard",
+        "recommended_et": 10.5,
         "prize_per_race": 1000,
         "tournament_bonus": 40000,
+        "racers": [
+            {"name": "Silver Arrow", "car": "BMW M3 E30 (Built)", "et": 12.0, "trap": 115, "car_color": "#9ea7b3", "bodyType": "coupe"},
+            {"name": "Apex Abby", "car": "Audi R8 V10", "et": 11.5, "trap": 122, "car_color": "#777777", "bodyType": "coupe"},
+            {"name": "Boosted Byron", "car": "Camaro ZL1 (Sprayed)", "et": 11.1, "trap": 128, "car_color": "#ffb300", "bodyType": "coupe"},
+            {"name": "Hammer Hank", "car": "Tesla Model S Plaid", "et": 10.2, "trap": 140, "car_color": "#c0c0c0", "bodyType": "sedan"},
+            {"name": "Phoenix", "car": "Lamborghini Countach Twin Turbo", "et": 10.5, "trap": 135, "car_color": "#ffdd00", "bodyType": "coupe"},
+            {"name": "Railgun Rui", "car": "Underground Supra", "et": 9.9, "trap": 142, "car_color": "#ff5500", "bodyType": "coupe"},
+            {"name": "Nightshade Nova", "car": "GT-R Nismo", "et": 9.7, "trap": 146, "car_color": "#0a0a0f", "bodyType": "coupe"},
+            {"name": "Storm Stella", "car": "Koenigsegg Agera", "et": 9.5, "trap": 150, "car_color": "#e0e0e0", "bodyType": "coupe"},
+        ],
+        "boss": {
+            "title": "City Champion",
+            "name": "The Phoenix",
+            "car": "Full Tube Chassis Dragster",
+            "et": 9.0,
+            "trap": 160,
+            "car_color": "#ff3b30",
+            "bodyType": "dragster",
+            "taunt": "You get one light. Make it count.",
+        },
     },
 ]
 
@@ -411,6 +642,10 @@ def calculate_effective_stats(car_catalog_entry: Dict[str, Any], upgrades: Dict[
     hp = float(base.get("hp", 0))
     weight = float(base.get("weight", 3200))
 
+    grip_bonus = 0.0
+    speed_bonus = 0.0
+    et_bonus = 0.0
+
     upgrades = upgrades or {}
     for part_key, tier in upgrades.items():
         if not tier:
@@ -422,9 +657,22 @@ def calculate_effective_stats(car_catalog_entry: Dict[str, Any], upgrades: Dict[
         if not tier_data:
             continue
 
-        hp += float(tier_data.get("hp", 0))
+        hp += float(tier_data.get("hp_bonus", tier_data.get("hp", 0)))
+        # Preserve support for legacy "weight" deltas while preferring explicit reductions
         weight += float(tier_data.get("weight", 0))
+        weight -= float(tier_data.get("weight_reduction", 0))
+        grip_bonus += float(tier_data.get("grip_bonus", 0))
+        speed_bonus += float(tier_data.get("speed_increase", 0))
+        et_bonus += float(tier_data.get("et_reduction", 0))
 
-    base["hp"] = round(hp, 2)
-    base["weight"] = round(weight, 2)
-    return base
+    weight = max(weight, 1.0)
+
+    return {
+        "hp": round(hp, 2),
+        "weight": round(weight, 2),
+        "grip_bonus": round(grip_bonus, 4),
+        "speed_bonus": round(speed_bonus, 2),
+        "et_bonus": round(et_bonus, 3),
+        "hp_gain": round(hp - float(base.get("hp", 0)), 2),
+        "weight_reduction": round(max(0.0, float(base.get("weight", 3200)) - weight), 2),
+    }
