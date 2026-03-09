@@ -1,4 +1,5 @@
-# Tournament System Configuration
+"""
+Tournament System Configuration
 
 ## Tiers
 The tournament system consists of three tiers:
@@ -24,3 +25,4 @@ Each race will feature opponents with distinct attributes:
 AI opponents will level up as the tournaments advance:
 - Each race won by the player increases the skill level of the AI opponents.
 - AI difficulty will scale with player performance, ensuring a challenging experience across all tiers.
+"""
