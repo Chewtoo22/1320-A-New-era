@@ -25,5 +25,3 @@ python-multipart>=0.0.9
 jq>=1.6.0
 typer>=0.9.0
 
-# NOTE: `emergentintegrations==0.1.0` is not available on PyPI (pip fails with "No matching distribution found").
-# If you need it locally, install it from the correct private index or Git URL, or add it back once a public version exists.
