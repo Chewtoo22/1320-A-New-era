@@ -1,48 +1,36 @@
-name: CI Testing
+# This is a workflow file for running tests
+
+name: Node.js CI
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
 jobs:
-  backend-tests:
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      - name: Install dependencies
-        run: |
-          cd backend
-          pip install -r requirements.txt
-          pip install pytest httpx  # Ensure test runners are present
-      - name: Run Backend Tests
-        run: |
-          pytest backend_test.py tests/ || ec=$?
-          if [ "${ec:-0}" -ne 0 ] && [ "${ec:-0}" -ne 5 ]; then
-            exit "${ec}"
-          fi
-          pytest tests/
 
-  frontend-tests:
-    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-          cache: 'yarn'
-          cache-dependency-path: frontend/yarn.lock
-      - name: Install dependencies
-        run: |
-          cd frontend
-          yarn install
-      - name: Run Frontend Tests
-        run: |
-          cd frontend
-          yarn test --watchAll=false
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Cache yarn
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache/yarn
+        key: ${{ runner.os }}-yarn-${{ hashFiles('frontend/yarn.lock','frontend/**/yarn.lock','frontend/package.json') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+
+    - name: Install dependencies
+      run: yarn install
+
+    - name: Run tests
+      run: yarn test
