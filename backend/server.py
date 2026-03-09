@@ -108,12 +108,17 @@ def _normalize_catalog_entry(entry: dict) -> dict:
 
     base_hp = float(normalized.get("hp", 0) or 0)
     base_weight = float(normalized.get("weight", 3200) or 3200)
-    if normalized.get("quarterMile") is None:
-        et_hint, _ = _base_et_and_trap_from_hp_weight(base_hp or 1.0, base_weight or 3200.0)
-        normalized["quarterMile"] = round(et_hint, 3)
-    if normalized.get("trapSpeed") is None:
-        _, trap_hint = _base_et_and_trap_from_hp_weight(base_hp or 1.0, base_weight or 3200.0)
-        normalized["trapSpeed"] = round(trap_hint, 2)
+    needs_quarter = normalized.get("quarterMile") is None
+    needs_trap = normalized.get("trapSpeed") is None
+    if needs_quarter or needs_trap:
+        et_hint, trap_hint = _base_et_and_trap_from_hp_weight(
+            base_hp or 1.0,
+            base_weight or 3200.0,
+        )
+        if needs_quarter:
+            normalized["quarterMile"] = round(et_hint, 3)
+        if needs_trap:
+            normalized["trapSpeed"] = round(trap_hint, 2)
 
     return normalized
 
