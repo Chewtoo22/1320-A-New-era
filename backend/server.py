@@ -1,5 +1,7 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import FastAPI, APIRouter, Depends, HTTPException
 from pydantic import BaseModel
+
+app = FastAPI(title="1320: A New Era API")
 
 api_router = APIRouter()
 
