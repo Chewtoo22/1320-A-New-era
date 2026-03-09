@@ -11,6 +11,7 @@ import uuid
 from datetime import datetime, timezone
 
 from game_data import CAR_CATALOG, PARTS_CATALOG, TOURNAMENTS, PAINT_COLORS, calculate_effective_stats
+from backend.race_engine import simulate_quarter_mile
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -72,6 +73,14 @@ class TournamentAdvanceRequest(BaseModel):
     tournament_id: str
     race_index: int
     won: bool
+    
+class RaceSimulateRequest(BaseModel):
+    player_id: str
+    player_car_id: str
+    opponent_car_id: Optional[str] = None
+    opponent_stats: Optional[Dict] = None
+    seed: Optional[int] = None
+
 
 # --- Player Routes ---
 @api_router.post("/player/create")
@@ -316,3 +325,45 @@ logger = logging.getLogger(__name__)
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
+
+@api_router.post("/race/simulate")
+async def simulate_race(req: RaceSimulateRequest):
+    player = await db.players.find_one({"id": req.player_id}, {"_id": 0})
+    if not player:
+        raise HTTPException(status_code=404, detail="Player not found")
+
+    player_car = await db.player_cars.find_one(
+        {"id": req.player_car_id, "player_id": req.player_id},
+        {"_id": 0}
+    )
+    if not player_car:
+        raise HTTPException(status_code=404, detail="Car not found in garage")
+
+    cat = CAR_CATALOG.get(player_car["car_id"])
+    if not cat:
+        raise HTTPException(status_code=404, detail="Player car_id not found in catalog")
+
+    player_effective = calculate_effective_stats(cat, player_car.get("upgrades", {}))
+
+    if req.opponent_car_id:
+        opp_cat = CAR_CATALOG.get(req.opponent_car_id)
+        if not opp_cat:
+            raise HTTPException(status_code=404, detail="Opponent car_id not found in catalog")
+        opponent_effective = calculate_effective_stats(opp_cat, {})
+        opponent_label = opp_cat.get("name", req.opponent_car_id)
+    elif req.opponent_stats:
+        opponent_effective = req.opponent_stats
+        opponent_label = req.opponent_stats.get("name", "Opponent")
+    else:
+        raise HTTPException(status_code=400, detail="Must provide opponent_car_id or opponent_stats")
+
+    sim = simulate_quarter_mile(player_effective, opponent_effective, seed=req.seed)
+
+    return {
+        "player_id": req.player_id,
+        "player_car_id": req.player_car_id,
+        "opponent_label": opponent_label,
+        "simulation": sim,
+        "player_effective_stats": player_effective,
+        "opponent_effective_stats": opponent_effective,
+    }
