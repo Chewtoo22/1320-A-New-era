@@ -78,7 +78,7 @@ async def shutdown_db():
         client.close()
 
 
-def _serialize(doc: dict) -> dict:
+def _serialize(doc: dict) -> Optional[dict]:
     """Remove MongoDB _id and return a plain dict."""
     if doc is None:
         return None
@@ -423,12 +423,15 @@ async def advance_tournament(request: TournamentAdvanceRequest):
 
     payout = 0
     if request.won:
+        # Player won this race: advance and award prize
         current_race = min(current_race + 1, total_races)
         if current_race >= total_races:
             completed = True
             payout = tournament.get("tournament_bonus", 0)
         else:
             payout = tournament.get("prize_per_race", 0)
+    # Note: If player lost (request.won = False), progress does not advance.
+    # The player can retry the same race. No payout is given for losses.
 
     new_cash = player["cash"] + payout
     await db.players.update_one({"id": request.player_id}, {"$set": {"cash": new_cash}})
