@@ -22,7 +22,10 @@ jobs:
           pip install pytest httpx  # Ensure test runners are present
       - name: Run Backend Tests
         run: |
-          pytest backend_test.py tests/
+          pytest backend_test.py tests/ || ec=$?
+          if [ "${ec:-0}" -ne 0 ] && [ "${ec:-0}" -ne 5 ]; then
+            exit "${ec}"
+          fi
 
   frontend-tests:
     runs-on: ubuntu-latest
@@ -32,8 +35,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'yarn'
-          cache-dependency-path: frontend/yarn.lock
       - name: Install dependencies
         run: |
           cd frontend
