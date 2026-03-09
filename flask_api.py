@@ -1,16 +1,21 @@
 from flask import Flask, jsonify, request
-from game_data import models
+from backend.game_data import CAR_CATALOG, PARTS_CATALOG, TOURNAMENTS, BOSS_CARS
 
 app = Flask(__name__)
 
-# Mock data for demonstration purposes
-cars = []  # Load car data from models
-boss_cars = []  # Load boss car data from models
-races = []  # Store ongoing and completed races
-player_stats = {}  # Store player stats
+# Populate data from the canonical game_data module
+cars = list(CAR_CATALOG.values())
+boss_cars = list(BOSS_CARS.values())
+races = []          # Store ongoing and completed races
+player_stats = {}   # Store player stats
+
 
 def calculate_race_results(race_info):
-    # Logic to calculate race results
+    # Basic race result calculation
+    results = {
+        "status": "completed",
+        "race_info": race_info,
+    }
     return results
 
 @app.route('/api/cars', methods=['GET'])
@@ -24,7 +29,7 @@ def get_boss_cars():
 @app.route('/api/tournaments', methods=['GET'])
 def get_tournaments():
     # Logic to get tournaments
-    return jsonify(tournaments)
+    return jsonify(TOURNAMENTS)
 
 @app.route('/api/race/start', methods=['POST'])
 def start_race():
