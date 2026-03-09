@@ -93,8 +93,8 @@ export default function Dealership() {
                 </div>
 
                 {/* Color preview */}
-                <div className="flex items-center justify-center h-14 mb-3 rounded-sm" style={{ background: `linear-gradient(135deg, ${car.color}18, ${car.color}05)` }}>
-                  <div className="w-16 h-6 rounded-sm border border-white/10" style={{ backgroundColor: car.color, boxShadow: `0 0 12px ${car.color}33` }} />
+                <div className="flex items-center justify-center h-14 mb-3 rounded-sm" style={{ background: `linear-gradient(135deg, ${car.paint_color}18, ${car.paint_color}05)` }}>
+                  <div className="w-16 h-6 rounded-sm border border-white/10" style={{ backgroundColor: car.paint_color, boxShadow: `0 0 12px ${car.paint_color}33` }} />
                 </div>
 
                 <h3 className="font-bold text-sm mb-1 uppercase tracking-wide" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>
