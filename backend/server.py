@@ -264,8 +264,8 @@ async def get_player_cars(player_id: str):
         effective = _compute_effective_stats(catalog_entry, upgrades)
 
         merged_effective = {
-            **effective,
             **(car.get("effective_stats") or {}),
+            **effective,
         }
 
         merged_car = {
@@ -436,13 +436,15 @@ async def advance_tournament(request: TournamentAdvanceRequest):
         {"player_id": request.player_id, "tournament_id": request.tournament_id},
         {
             "$set": {
-                "_id": f"{request.player_id}:{request.tournament_id}",
                 "player_id": request.player_id,
                 "tournament_id": request.tournament_id,
                 "current_race": current_race,
                 "completed": completed,
                 "updated_at": datetime.utcnow().isoformat(),
-            }
+            },
+            "$setOnInsert": {
+                "_id": f"{request.player_id}:{request.tournament_id}",
+            },
         },
         upsert=True,
     )
