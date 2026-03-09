@@ -22,6 +22,10 @@ jobs:
           pip install pytest httpx  # Ensure test runners are present
       - name: Run Backend Tests
         run: |
+          pytest backend_test.py tests/ || ec=$?
+          if [ "${ec:-0}" -ne 0 ] && [ "${ec:-0}" -ne 5 ]; then
+            exit "${ec}"
+          fi
           pytest tests/
 
   frontend-tests:
