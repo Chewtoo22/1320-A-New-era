@@ -18,7 +18,7 @@ A modern drag-racing game inspired by Nitto 1320 Legends. Build your garage, tun
 ### Prerequisites
 
 - Python 3.10+
-- Node.js 18+ and Yarn
+- Node.js 20+ and Yarn
 - MongoDB (local or remote)
 
 ### 1. Backend Setup
