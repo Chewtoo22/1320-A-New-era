@@ -1,4 +1,5 @@
-# Playable Cars Organized by Tier
+"""
+Playable Cars Organized by Tier
 
 ## Tier 1 
 1. **Car Model**: Original Car 1  
@@ -78,4 +79,4 @@
    - **Description**: A fierce competitor.
 
 ... (and details for other boss cars, totaling to 3)
-
+"""

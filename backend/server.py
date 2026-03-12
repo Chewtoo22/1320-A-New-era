@@ -1,31 +1,7 @@
-"""
-1320: A New Era — FastAPI Backend Server
-
-Endpoints:
-  POST /api/player/create
-  GET  /api/player/{player_id}
-  GET  /api/cars/catalog
-  GET  /api/cars/player/{player_id}
-  POST /api/cars/buy
-  POST /api/cars/upgrade
-  GET  /api/parts/catalog
-  GET  /api/tournaments
-  POST /api/race/result
-  GET  /api/health
-"""
-
-from __future__ import annotations
-
-import os
-import uuid
-from datetime import datetime
-from typing import Any, List, Optional
-
-from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
-from motor.motor_asyncio import AsyncIOMotorClient
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
+
+app = FastAPI(title="1320: A New Era API")
 
 from game_data import (
     CAR_CATALOG,

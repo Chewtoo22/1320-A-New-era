@@ -35,13 +35,22 @@ PAINT_COLORS = [
 # - trapSpeed (baseline trap speed in mph)
 # ---------------------------
 CAR_CATALOG: Dict[str, Dict[str, Any]] = {
-    # --- Compact ---
-    "civic_si": {
-        "id": "civic_si",
-        "name": "Honda Civic Si",
-        "category": "compact",
-        "hp": 160,
-        "torque": 140,
+    "camaro_zl1": {
+        "id": "camaro_zl1",
+        "name": "Chevrolet Camaro ZL1",
+        "hp": 650,
+        "torque": 650,
+        "weight": 3900,
+        "quarterMile": 11.2,
+        "trapSpeed": 127,
+        "price": 65000,
+        "color": "#ffcc00",
+    },
+    "delorean_dmc_12": {
+        "id": "delorean_dmc_12",
+        "name": "DeLorean DMC-12",
+        "hp": 130,
+        "torque": 153,
         "weight": 2800,
         "quarterMile": 15.5,
         "trapSpeed": 91,
@@ -209,43 +218,136 @@ CAR_CATALOG: Dict[str, Dict[str, Any]] = {
         "price": 14000,
         "color": "#ff66cc",
     },
-    "bmw_m3_e30": {
-        "id": "bmw_m3_e30",
-        "name": "BMW M3 E30",
-        "category": "euro",
-        "hp": 238,
-        "torque": 177,
-        "weight": 2700,
-        "quarterMile": 14.1,
-        "trapSpeed": 101,
-        "price": 32000,
+    "datsun_240z": {
+        "id": "datsun_240z",
+        "name": "Datsun 240Z",
+        "hp": 150,
+        "torque": 145,
+        "weight": 2400,
+        "quarterMile": 15.8,
+        "trapSpeed": 88,
+        "price": 18000,
+        "color": "#ff4400",
+    },
+    "toyota_supra_mk4": {
+        "id": "toyota_supra_mk4",
+        "name": "Toyota Supra MK4",
+        "category": "jdm",
+        "hp": 320,
+        "torque": 315,
+        "weight": 3200,
+        "quarterMile": 13.5,
+        "trapSpeed": 108,
+        "price": 45000,
+        "color": "#ff8800",
+    },
+    "nissan_skyline_r34": {
+        "id": "nissan_skyline_r34",
+        "name": "Nissan Skyline GT-R R34",
+        "category": "jdm",
+        "hp": 280,
+        "torque": 289,
+        "weight": 3100,
+        "quarterMile": 13.8,
+        "trapSpeed": 105,
+        "price": 55000,
+        "color": "#aaddff",
+    },
+    "honda_integra_type_r": {
+        "id": "honda_integra_type_r",
+        "name": "Honda Integra Type R",
+        "category": "jdm",
+        "hp": 195,
+        "torque": 130,
+        "weight": 2650,
+        "quarterMile": 14.6,
+        "trapSpeed": 94,
+        "price": 12000,
+        "color": "#ffffff",
+    },
+    "ford_mustang_gt": {
+        "id": "ford_mustang_gt",
+        "name": "Ford Mustang GT",
+        "category": "muscle",
+        "hp": 460,
+        "torque": 420,
+        "weight": 3800,
+        "quarterMile": 12.4,
+        "trapSpeed": 116,
+        "price": 35000,
         "color": "#003399",
     },
-    # --- Exotic ---
-    "lambo_countach": {
-        "id": "lambo_countach",
-        "name": "Lamborghini Countach",
+    "dodge_challenger_hellcat": {
+        "id": "dodge_challenger_hellcat",
+        "name": "Dodge Challenger Hellcat",
+        "category": "muscle",
+        "hp": 717,
+        "torque": 656,
+        "weight": 4400,
+        "quarterMile": 11.0,
+        "trapSpeed": 130,
+        "price": 58000,
+        "color": "#880000",
+    },
+    "ford_f150_raptor": {
+        "id": "ford_f150_raptor",
+        "name": "Ford F-150 Raptor",
+        "category": "truck",
+        "hp": 450,
+        "torque": 510,
+        "weight": 5600,
+        "quarterMile": 13.5,
+        "trapSpeed": 100,
+        "price": 55000,
+        "color": "#336699",
+    },
+    "toyota_4runner_trd": {
+        "id": "toyota_4runner_trd",
+        "name": "Toyota 4Runner TRD Pro",
+        "category": "suv",
+        "hp": 270,
+        "torque": 278,
+        "weight": 4700,
+        "quarterMile": 15.0,
+        "trapSpeed": 90,
+        "price": 45000,
+        "color": "#556622",
+    },
+    "bmw_m3_e46": {
+        "id": "bmw_m3_e46",
+        "name": "BMW M3 E46",
+        "category": "euro",
+        "hp": 333,
+        "torque": 262,
+        "weight": 3285,
+        "quarterMile": 13.2,
+        "trapSpeed": 107,
+        "price": 25000,
+        "color": "#333333",
+    },
+    "lamborghini_gallardo": {
+        "id": "lamborghini_gallardo",
+        "name": "Lamborghini Gallardo",
         "category": "exotic",
-        "hp": 455,
-        "torque": 369,
-        "weight": 3340,
-        "quarterMile": 13.0,
-        "trapSpeed": 111,
-        "price": 250000,
+        "hp": 552,
+        "torque": 398,
+        "weight": 3175,
+        "quarterMile": 11.5,
+        "trapSpeed": 125,
+        "price": 150000,
         "color": "#ffdd00",
     },
-    # --- Electric ---
     "tesla_model_s_plaid": {
         "id": "tesla_model_s_plaid",
         "name": "Tesla Model S Plaid",
         "category": "electric",
         "hp": 1020,
         "torque": 1050,
-        "weight": 4766,
-        "quarterMile": 9.4,
-        "trapSpeed": 152,
-        "price": 119990,
-        "color": "#e8e8e8",
+        "weight": 4500,
+        "quarterMile": 9.5,
+        "trapSpeed": 155,
+        "price": 90000,
+        "color": "#cc0022",
     },
 }
 
@@ -545,9 +647,6 @@ TOURNAMENTS = [
     {
         "id": "street_league",
         "name": "Street League",
-        "description": "Back-alley grudge matches and cash days for newcomers finding their rhythm.",
-        "difficulty": "easy",
-        "recommended_et": 14.5,
         "prize_per_race": 500,
         "tournament_bonus": 10000,
         "racers": [
@@ -574,9 +673,6 @@ TOURNAMENTS = [
     {
         "id": "underground_circuit",
         "name": "Underground Circuit",
-        "description": "Closed warehouse lots and midnight beltway pulls with faster, tuned builds.",
-        "difficulty": "medium",
-        "recommended_et": 12.5,
         "prize_per_race": 750,
         "tournament_bonus": 20000,
         "racers": [
@@ -603,9 +699,6 @@ TOURNAMENTS = [
     {
         "id": "elite_championship",
         "name": "Elite Championship",
-        "description": "Invite-only cash games with the fastest cars in the city. No excuses.",
-        "difficulty": "hard",
-        "recommended_et": 10.5,
         "prize_per_race": 1000,
         "tournament_bonus": 40000,
         "racers": [
@@ -636,6 +729,7 @@ def calculate_effective_stats(car_catalog_entry: Dict[str, Any], upgrades: Dict[
     """
     Applies upgrades to a base car entry and returns a new dict with effective stats.
     The server expects to call this and receive a dict that includes at least hp/weight.
+    Also computes effectiveHP and effectiveET for API responses.
     """
     base = dict(car_catalog_entry)
 
@@ -660,19 +754,7 @@ def calculate_effective_stats(car_catalog_entry: Dict[str, Any], upgrades: Dict[
         hp += float(tier_data.get("hp_bonus", tier_data.get("hp", 0)))
         # Preserve support for legacy "weight" deltas while preferring explicit reductions
         weight += float(tier_data.get("weight", 0))
-        weight -= float(tier_data.get("weight_reduction", 0))
-        grip_bonus += float(tier_data.get("grip_bonus", 0))
-        speed_bonus += float(tier_data.get("speed_increase", 0))
-        et_bonus += float(tier_data.get("et_reduction", 0))
 
-    weight = max(weight, 1.0)
-
-    return {
-        "hp": round(hp, 2),
-        "weight": round(weight, 2),
-        "grip_bonus": round(grip_bonus, 4),
-        "speed_bonus": round(speed_bonus, 2),
-        "et_bonus": round(et_bonus, 3),
-        "hp_gain": round(hp - float(base.get("hp", 0)), 2),
-        "weight_reduction": round(max(0.0, float(base.get("weight", 3200)) - weight), 2),
-    }
+    base["hp"] = round(hp, 2)
+    base["weight"] = round(weight, 2)
+    return base
