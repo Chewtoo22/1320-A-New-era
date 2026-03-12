@@ -31,7 +31,7 @@ function GameProvider({ children }) {
       const res = await axios.get(`${API}/player/${id}`);
       setPlayer(res.data);
     } catch (e) {
-      console.error("Failed to load player", e);
+      console.error(`Failed to load player from ${API}/player/${id}:`, e.message);
     }
   }, [player?.id]);
 
@@ -42,7 +42,7 @@ function GameProvider({ children }) {
       const res = await axios.get(`${API}/cars/player/${id}`);
       setPlayerCars(res.data);
     } catch (e) {
-      console.error("Failed to load cars", e);
+      console.error(`Failed to load cars from ${API}/cars/player/${id}:`, e.message);
     }
   }, [player?.id]);
 
