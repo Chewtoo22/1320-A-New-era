@@ -210,8 +210,8 @@ def complete_race():
     race_info = request.get_json(silent=True)
     try:
         results = calculate_race_results(race_info)
-    except ValueError as exc:
-        return jsonify({'error': str(exc)}), 400
+    except ValueError:
+        return jsonify({'error': 'Invalid race data'}), 400
     return jsonify(results), 200
 
 
