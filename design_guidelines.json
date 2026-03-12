@@ -56,7 +56,7 @@
       "visual_style": {
         "glassmorphism": "backdrop-blur-md bg-opacity-90 border border-white/10 shadow-2xl",
         "mechanical_panel": "relative border-l-4 border-l-[#FFB300] bg-[#1A2332] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]",
-        "chamfered_corners": "clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)"
+        "chamfered_corners": "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)"
       }
     },
     "components": {
