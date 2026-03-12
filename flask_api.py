@@ -1,6 +1,7 @@
 import uuid
 from flask import Flask, jsonify, request
 from game_data import models
+import os
 
 app = Flask(__name__)
 
@@ -239,4 +240,5 @@ def record_race_result():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    debug_mode = os.getenv('FLASK_DEBUG', '0') == '1'
+    app.run(debug=debug_mode)
