@@ -1,7 +1,6 @@
 import uuid
 from flask import Flask, jsonify, request
-from game_data import CAR_CATALOG, BOSS_CARS, TOURNAMENTS, PARTS_CATALOG, calculate_effective_stats
-from backend.race_engine import simulate_quarter_mile
+from game_data import models
 
 app = Flask(__name__)
 

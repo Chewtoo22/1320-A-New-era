@@ -170,13 +170,26 @@ export default function RaceScreen() {
         await refreshPlayer();
       }
     } catch (e) {
-      console.error(e);
+      console.error(`Failed to record race result for player ${player.id}:`, e.message);
+      toast.error("Failed to save race result. Try again.");
     }
     setSaving(false);
     navigate(raceData?.returnTo || "/garage");
   };
 
-  if (!selectedCar || !opponent) return null;
+  if (!selectedCar || !opponent) {
+    return (
+      <div className="max-w-6xl mx-auto px-4 py-12 text-center">
+        <div className="animate-pulse">
+          <h2 className="text-2xl font-bold mb-4 text-[#FFB300]" style={{ fontFamily: "'Chakra Petch', sans-serif" }}>
+            LOADING RACE DATA
+          </h2>
+          <p className="text-[#94A3B8] mb-4">Preparing for race...</p>
+          <div className="h-32 bg-[#1A2332] border border-[#2D3748] rounded-sm animate-pulse" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-6 animate-fade-in" data-testid="race-screen">
